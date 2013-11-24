@@ -8,7 +8,9 @@
 package de.minecrawler.IR1.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,16 +20,17 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {"reuters"})
 @XmlRootElement(name = "LEWIS")
-public class DocumentList {
+public class DocumentList implements Iterable<Document> {
 
     @XmlElement(name = "REUTERS", required = true)
-    private List<Document> reuters;
+    private List<Document> reuters = new ArrayList<Document>();
 
     public List<Document> getDocuments() {
-        if (reuters == null) {
-            reuters = new ArrayList<Document>();
-        }
         return this.reuters;
+    }
+
+    public Iterator<Document> iterator() {
+        return this.reuters.iterator();
     }
 
 }
