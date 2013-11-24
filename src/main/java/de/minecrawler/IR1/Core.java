@@ -18,6 +18,12 @@
 
 package de.minecrawler.IR1;
 
+/*
+ * Information:
+ * XML -> XSD mit trang (http://www.thaiopensource.com/relaxng/trang.html)
+ * XSD -> JABX POJO mit xjc
+ */
+
 public class Core {
 
     public static void main(String[] args) {
