@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 public class DocumentList {
 
     @XmlElement(name = "REUTERS", required = true)
-    protected List<Document> reuters;
+    private List<Document> reuters;
 
     public List<Document> getDocuments() {
         if (reuters == null) {

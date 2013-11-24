@@ -12,50 +12,59 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "TEXT")
 public class Text {
 
     @XmlAttribute(name = "TYPE")
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlSchemaType(name = "NCName")
-    protected String type;
+    private String type;
 
     @XmlElement(name = "BODY", required = false)
-    protected String body;
+    private String body;
 
     @XmlElement(name = "TITLE", required = false)
-    protected String title;
+    private String title;
 
     @XmlElement(name = "AUTHOR", required = false)
-    protected String author;
+    private String author;
 
     @XmlElement(name = "DATELINE", required = false)
-    protected String dateline;
+    private String dateline;
 
+    /**
+     * @return The type of the text(for example a letter)
+     */
     public String getType() {
         return type;
     }
 
-    public void setTYPE(String value) {
-        this.type = value;
-    }
-
+    /**
+     * @return The author of the text
+     */
     public String getAuthor() {
         return author;
     }
-    public String getBody() {
-        return body;
-    }
+
+    /**
+     * @return The location and the date of the text
+     */
     public String getDateline() {
         return dateline;
     }
+
+    /**
+     * @return The title of the text
+     */
     public String getTitle() {
         return title;
+    }
+
+    /**
+     * @return The text itselfs
+     */
+    public String getBody() {
+        return body;
     }
 
 }
