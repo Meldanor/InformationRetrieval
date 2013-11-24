@@ -18,37 +18,38 @@
 		<tasknumber>1</tasknumber>
 		<subtasknumber>1</subtasknumber>
 		<teamname>MineCrawler</teamname>
+		<luceneVersion>4.5.1</luceneVersion>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
-			<version>4.5.1</version>
+			<version>${luceneVersion}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-analyzers-common</artifactId>
-			<version>4.5.1</version>
+			<version>${luceneVersion}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-queries</artifactId>
-			<version>4.5.1</version>
+			<version>${luceneVersion}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-queryparser</artifactId>
-			<version>4.5.1</version>
+			<version>${luceneVersion}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-memory</artifactId>
-			<version>4.5.1</version>
+			<version>${luceneVersion}</version>
 		</dependency>
 
 		<dependency>
