@@ -30,8 +30,8 @@ import javax.xml.bind.Unmarshaller;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
-import de.minecrawler.IR1.data.Document;
-import de.minecrawler.IR1.data.DocumentList;
+import de.minecrawler.IR1.data.XMLDocument;
+import de.minecrawler.IR1.data.XMLDocumentList;
 
 public class XMLTest {
 
@@ -43,9 +43,9 @@ public class XMLTest {
         Unmarshaller unmarshaller = jc.createUnmarshaller();
 
         // Parsing of XML
-        DocumentList sp = (DocumentList) unmarshaller.unmarshal(new File("xml/reut2-000.xml"));
+        XMLDocumentList sp = (XMLDocumentList) unmarshaller.unmarshal(new File("xml/reut2-000.xml"));
         // Get First document
-        Document r = sp.getDocuments().get(0);
+        XMLDocument r = sp.getDocuments().get(0);
 
         // Run some tests
         // Check the attribute "TOPICS"

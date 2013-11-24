@@ -20,16 +20,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {"reuters"})
 @XmlRootElement(name = "LEWIS")
-public class DocumentList implements Iterable<Document> {
+public class XMLDocumentList implements Iterable<XMLDocument> {
 
     @XmlElement(name = "REUTERS", required = true)
-    private List<Document> reuters = new ArrayList<Document>();
+    private List<XMLDocument> reuters = new ArrayList<XMLDocument>();
 
-    public List<Document> getDocuments() {
+    public List<XMLDocument> getDocuments() {
         return this.reuters;
     }
 
-    public Iterator<Document> iterator() {
+    public Iterator<XMLDocument> iterator() {
         return this.reuters.iterator();
     }
 

@@ -27,7 +27,7 @@ import org.joda.time.format.DateTimeFormatter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {"date", "mknote", "topics", "places", "people", "orgs", "exchanges", "companies", "unknown", "text"})
 @XmlRootElement(name = "REUTERS")
-public class Document {
+public class XMLDocument {
 
     @XmlElement(name = "DATE", required = true)
     @XmlJavaTypeAdapter(DateAdapter.class)
@@ -58,7 +58,7 @@ public class Document {
     private String unknown;
 
     @XmlElement(name = "TEXT", required = true)
-    private Text text;
+    private XMLText text;
 
     @XmlAttribute(name = "CGISPLIT", required = true)
     private String cgisplit;
@@ -79,7 +79,7 @@ public class Document {
     @XmlJavaTypeAdapter(HasTopicsAdapter.class)
     private Boolean hastopics;
 
-    protected Document() {
+    protected XMLDocument() {
     }
 
     /**
@@ -157,7 +157,7 @@ public class Document {
     /**
      * @return The text body of the document
      */
-    public Text getText() {
+    public XMLText getText() {
         return text;
     }
 

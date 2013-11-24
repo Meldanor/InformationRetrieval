@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "TEXT")
-public class Text {
+public class XMLText {
 
     @XmlAttribute(name = "TYPE")
     private String type;

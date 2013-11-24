@@ -52,27 +52,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DocumentList }
+     * Create an instance of {@link XMLDocumentList }
      * 
      */
-    public DocumentList createLEWIS() {
-        return new DocumentList();
+    public XMLDocumentList createLEWIS() {
+        return new XMLDocumentList();
     }
 
     /**
-     * Create an instance of {@link Document }
+     * Create an instance of {@link XMLDocument }
      * 
      */
-    public Document createREUTERS() {
-        return new Document();
+    public XMLDocument createREUTERS() {
+        return new XMLDocument();
     }
 
     /**
-     * Create an instance of {@link Text }
+     * Create an instance of {@link XMLText }
      * 
      */
-    public Text createTEXT() {
-        return new Text();
+    public XMLText createTEXT() {
+        return new XMLText();
     }
 
     /**
@@ -170,36 +170,36 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "AUTHOR", scope = Text.class)
+    @XmlElementDecl(namespace = "", name = "AUTHOR", scope = XMLText.class)
     public JAXBElement<String> createTEXTAUTHOR(String value) {
-        return new JAXBElement<String>(_TEXTAUTHOR_QNAME, String.class, Text.class, value);
+        return new JAXBElement<String>(_TEXTAUTHOR_QNAME, String.class, XMLText.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "BODY", scope = Text.class)
+    @XmlElementDecl(namespace = "", name = "BODY", scope = XMLText.class)
     public JAXBElement<String> createTEXTBODY(String value) {
-        return new JAXBElement<String>(_TEXTBODY_QNAME, String.class, Text.class, value);
+        return new JAXBElement<String>(_TEXTBODY_QNAME, String.class, XMLText.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "DATELINE", scope = Text.class)
+    @XmlElementDecl(namespace = "", name = "DATELINE", scope = XMLText.class)
     public JAXBElement<String> createTEXTDATELINE(String value) {
-        return new JAXBElement<String>(_TEXTDATELINE_QNAME, String.class, Text.class, value);
+        return new JAXBElement<String>(_TEXTDATELINE_QNAME, String.class, XMLText.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "TITLE", scope = Text.class)
+    @XmlElementDecl(namespace = "", name = "TITLE", scope = XMLText.class)
     public JAXBElement<String> createTEXTTITLE(String value) {
-        return new JAXBElement<String>(_TEXTTITLE_QNAME, String.class, Text.class, value);
+        return new JAXBElement<String>(_TEXTTITLE_QNAME, String.class, XMLText.class, value);
     }
 
 }
