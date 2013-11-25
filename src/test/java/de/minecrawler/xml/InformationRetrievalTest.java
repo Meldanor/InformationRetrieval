@@ -21,13 +21,12 @@ package de.minecrawler.xml;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.minecrawler.IR1.InformationRetrievalSystem;
-import de.minecrawler.IR1.data.XMLDocument;
+import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
 
 public class InformationRetrievalTest {
 
@@ -43,21 +42,21 @@ public class InformationRetrievalTest {
     @Test
     public void testNormalQuery() {
         String query = "Tokyo";
-        List<XMLDocument> result = IRsystem.search(query);
+        ResultXMLDocumentList result = IRsystem.search(query);
         assertTrue("Result for query '" + query + "' was null, but shouldn't!", result.size() > 0);
     }
 
     @Test
     public void testTitleOnlyQuery() {
         String query = "title:\"Tokyo\"";
-        List<XMLDocument> result = IRsystem.search(query);
+        ResultXMLDocumentList result = IRsystem.search(query);
         assertTrue("Result for query '" + query + "' was null, but shouldn't!", result.size() > 0);
     }
 
     @Test
     public void testDateIntervalQuery() {
         String query = "date:[19870226 TO 19870227]";
-        List<XMLDocument> result = IRsystem.search(query);
+        ResultXMLDocumentList result = IRsystem.search(query);
         assertTrue("Result for query '" + query + "' was null, but shouldn't!", result.size() > 0);
 
     }

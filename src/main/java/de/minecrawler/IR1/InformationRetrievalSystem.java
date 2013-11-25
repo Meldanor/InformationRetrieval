@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +53,7 @@ import org.apache.lucene.util.Version;
 
 import de.minecrawler.IR1.data.XMLDocument;
 import de.minecrawler.IR1.data.XMLDocumentList;
+import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
 
 public class InformationRetrievalSystem {
 
@@ -125,7 +125,7 @@ public class InformationRetrievalSystem {
             doc.add(new Field(FIELD_BODY, xmlDocument.getText().getBody(), TextField.TYPE_STORED));
     }
 
-    public List<XMLDocument> search(String queryString) {
+    public ResultXMLDocumentList search(String queryString) {
         try {
             DirectoryReader ireader = DirectoryReader.open(this.dir);
             IndexSearcher isearcher = new IndexSearcher(ireader);
@@ -134,25 +134,26 @@ public class InformationRetrievalSystem {
             Query query = parser.parse(queryString);
             ScoreDoc[] hits = isearcher.search(query, null, 1000).scoreDocs;
             if (hits.length == 0)
-                return new ArrayList<XMLDocument>();
+                return new ResultXMLDocumentList();
 
-            List<XMLDocument> result = new ArrayList<XMLDocument>(hits.length);
+            ResultXMLDocumentList result = new ResultXMLDocumentList();
+//            List<XMLDocument> result = new ArrayList<XMLDocument>(hits.length);
             for (int i = 0; i < hits.length; ++i) {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 XMLDocument xmlDoc = xmlDocumentMap.get(new BigInteger(hitDoc.get(FIELD_ID)));
-                result.add(xmlDoc);
+                result.addResult(xmlDoc, (i + 1), hits[i].score);
             }
 
             ireader.close();
             return result;
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<XMLDocument>();
+            return new ResultXMLDocumentList();
         } catch (ParseException e) {
             // TODO: Use logger
             System.out.println("Wrong query! Check your query format!");
             System.out.println(e.getMessage());
-            return new ArrayList<XMLDocument>();
+            return new ResultXMLDocumentList();
         }
     }
 }

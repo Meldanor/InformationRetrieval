@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
+import de.minecrawler.IR1.data.queryresult.ResultXMLDocument;
+import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
+
 /**
  * This object contains factory methods for each Java content interface and Java
  * element interface generated in the de.minecrawler.IR1.data package.
@@ -65,6 +68,14 @@ public class ObjectFactory {
      */
     public XMLDocument createREUTERS() {
         return new XMLDocument();
+    }
+
+    public ResultXMLDocument createXMLResult() {
+        return new ResultXMLDocument();
+    }
+
+    public ResultXMLDocumentList createXMLResultList() {
+        return new ResultXMLDocumentList();
     }
 
     /**

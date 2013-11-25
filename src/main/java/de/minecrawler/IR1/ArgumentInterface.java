@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -35,8 +34,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
-import de.minecrawler.IR1.data.XMLDocument;
-import de.minecrawler.IR1.data.XMLDocumentList;
+import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
 
 /**
  * Handler for using console arguments to start the information retrieval
@@ -154,7 +152,7 @@ public class ArgumentInterface {
             e.printStackTrace();
         }
         System.out.println("Query: " + query);
-        List<XMLDocument> result = irSystem.search(query);
+        ResultXMLDocumentList result = irSystem.search(query);
         showResults(showInConsole, result);
     }
 
@@ -167,21 +165,21 @@ public class ArgumentInterface {
      * @param result
      *            The result of the query
      */
-    private void showResults(boolean showInConsole, List<XMLDocument> result) {
+    private void showResults(boolean showInConsole, ResultXMLDocumentList result) {
         System.out.println("Results: " + result.size());
-        XMLDocumentList tmp = new XMLDocumentList(result);
         try {
             JAXBContext jc = JAXBContext.newInstance(Core.XML_ENTITY_PACKAGE);
             Marshaller marshaller = jc.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             if (showInConsole) {
-                marshaller.marshal(tmp, System.out);
+                marshaller.marshal(result, System.out);
             } else {
                 File f = createResultFile();
                 System.out.println("Result is in " + f);
-                marshaller.marshal(tmp, f);
+                marshaller.marshal(result, f);
             }
         } catch (JAXBException e) {
+            e.printStackTrace();
         }
     }
 
