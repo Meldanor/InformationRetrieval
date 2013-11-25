@@ -19,8 +19,9 @@
 package de.minecrawler.IR1;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,8 +64,6 @@ public class InformationRetrievalSystem {
 
     private static final String[] FIELDS = {FIELD_BODY, FIELD_TOPIC, FIELD_DATE};
 
-    private static final String XML_ENTITY_PACKAGE = "de.minecrawler.IR1.data";
-
     private List<XMLDocument> xmlDocuments;
     private Map<BigInteger, XMLDocument> xmlDocumentMap;
 
@@ -72,22 +71,23 @@ public class InformationRetrievalSystem {
     private Directory dir;
 
     public InformationRetrievalSystem(File xmlFile) throws Exception {
-        if (!xmlFile.exists())
-            throw new FileNotFoundException("XML File not found");
-
-        this.xmlDocumentMap = new HashMap<BigInteger, XMLDocument>();
-
-        init(xmlFile);
+        this(new FileInputStream(xmlFile));
     }
 
-    private void init(File source) throws Exception {
+    public InformationRetrievalSystem(InputStream stream) throws Exception {
+        this.xmlDocumentMap = new HashMap<BigInteger, XMLDocument>();
+
+        init(stream);
+    }
+
+    private void init(InputStream source) throws Exception {
         xmlDocuments = loadXML(source);
         createIndex(xmlDocuments);
     }
 
-    private List<XMLDocument> loadXML(File source) throws JAXBException, Exception {
+    private List<XMLDocument> loadXML(InputStream source) throws JAXBException, Exception {
         // Nutzen der Object Factory
-        JAXBContext jc = JAXBContext.newInstance(XML_ENTITY_PACKAGE);
+        JAXBContext jc = JAXBContext.newInstance(Core.XML_ENTITY_PACKAGE);
         Unmarshaller unmarshaller = jc.createUnmarshaller();
 
         // Parsing of XML

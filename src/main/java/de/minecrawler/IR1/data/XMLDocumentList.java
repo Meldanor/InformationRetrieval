@@ -25,6 +25,13 @@ public class XMLDocumentList implements Iterable<XMLDocument> {
     @XmlElement(name = "REUTERS", required = true)
     private List<XMLDocument> reuters = new ArrayList<XMLDocument>();
 
+    protected XMLDocumentList() {
+    }
+
+    public XMLDocumentList(List<XMLDocument> list) {
+        this.reuters = list;
+    }
+
     public List<XMLDocument> getDocuments() {
         return this.reuters;
     }

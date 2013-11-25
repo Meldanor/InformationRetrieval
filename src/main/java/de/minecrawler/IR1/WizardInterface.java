@@ -18,26 +18,10 @@
 
 package de.minecrawler.IR1;
 
-/*
- * Information:
- * XML -> XSD mit trang (http://www.thaiopensource.com/relaxng/trang.html)
- * XSD -> JABX POJO mit xjc
+/**
+ * Class to provide a user friendly console based interface
  */
+public class WizardInterface {
 
-public class Core {
-
-    public static final String XML_ENTITY_PACKAGE = "de.minecrawler.IR1.data";
-
-    public static void main(String[] args) {
-        System.out.println("===============");
-        System.out.println("= MINECRAWLER =");
-        System.out.println("===============");
-
-        if (args.length > 0) {
-            new ArgumentInterface(args);
-        } else {
-            // TODO: Implement simple wizard interface
-            new WizardInterface();
-        }
-    }
+    // TODO: implement
 }
