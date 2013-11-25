@@ -126,6 +126,10 @@ public class InformationRetrievalSystem {
     }
 
     public ResultXMLDocumentList search(String queryString) {
+        return search(queryString, 10);
+    }
+
+    public ResultXMLDocumentList search(String queryString, int limit) {
         try {
             DirectoryReader ireader = DirectoryReader.open(this.dir);
             IndexSearcher isearcher = new IndexSearcher(ireader);
@@ -138,7 +142,7 @@ public class InformationRetrievalSystem {
 
             ResultXMLDocumentList result = new ResultXMLDocumentList();
 //            List<XMLDocument> result = new ArrayList<XMLDocument>(hits.length);
-            for (int i = 0; i < hits.length; ++i) {
+            for (int i = 0; i < hits.length && i < limit; ++i) {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 XMLDocument xmlDoc = xmlDocumentMap.get(new BigInteger(hitDoc.get(FIELD_ID)));
                 result.addResult(xmlDoc, (i + 1), hits[i].score);

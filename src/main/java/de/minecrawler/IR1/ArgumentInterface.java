@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -74,6 +75,8 @@ public class ArgumentInterface {
         // console instead of a file
         options.addOption("c", "console", false, "Query output is in the console");
 
+        options.addOption("l", "limit", true, "Number of max results");
+
         return options;
     }
 
@@ -84,6 +87,8 @@ public class ArgumentInterface {
         InputStream xmlStream = getClass().getResourceAsStream("/reut2-000.xml");
         // Show the query output on the console?
         boolean showInConsole = false;
+
+        int limit = 10;
         try {
             CommandLine line = parser.parse(options, args);
             // User has defined own file -> parse this file
@@ -97,6 +102,15 @@ public class ArgumentInterface {
                 }
                 System.out.println("Searching in file " + fileName);
             }
+            if (line.hasOption("limit")) {
+                String tmp = line.getOptionValue("limit");
+                try {
+                    limit = Integer.parseInt(tmp);
+                } catch (Exception e) {
+                    System.out.println(tmp + " is not a number!");
+                }
+            }
+
             // Show the query output on the console?
             showInConsole = line.hasOption("console");
 
@@ -104,7 +118,7 @@ public class ArgumentInterface {
             args = line.getArgs();
             String query = buildQuery(args);
 
-            startQuery(xmlStream, showInConsole, query);
+            startQuery(xmlStream, showInConsole, query, limit);
         } catch (ParseException e) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("", options);
@@ -142,18 +156,23 @@ public class ArgumentInterface {
      *            Show the output on the console?
      * @param query
      *            The query to execute
+     * @param limit
+     *            Max number of results to display
      */
-    private void startQuery(InputStream xmlFile, boolean showInConsole, String query) {
+    private void startQuery(InputStream xmlFile, boolean showInConsole, String query, int limit) {
         InformationRetrievalSystem irSystem = null;
+        long time = System.nanoTime();
         try {
             irSystem = new InformationRetrievalSystem(xmlFile);
         } catch (Exception e) {
             System.out.println("Error while parsing the XML file");
             e.printStackTrace();
         }
+        time = System.nanoTime() - time;
         System.out.println("Query: " + query);
-        ResultXMLDocumentList result = irSystem.search(query);
-        showResults(showInConsole, result);
+        System.out.println("Limit: " + limit);
+        ResultXMLDocumentList result = irSystem.search(query, limit);
+        showResults(showInConsole, result, time);
     }
 
     /**
@@ -164,9 +183,12 @@ public class ArgumentInterface {
      *            If <code>false</code> the output will be written in a file
      * @param result
      *            The result of the query
+     * @param time
+     *            The time of query to execute
      */
-    private void showResults(boolean showInConsole, ResultXMLDocumentList result) {
+    private void showResults(boolean showInConsole, ResultXMLDocumentList result, long time) {
         System.out.println("Results: " + result.size());
+        printTime(time);
         try {
             JAXBContext jc = JAXBContext.newInstance(Core.XML_ENTITY_PACKAGE);
             Marshaller marshaller = jc.createMarshaller();
@@ -181,6 +203,19 @@ public class ArgumentInterface {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+    }
+
+    private void printTime(long time) {
+        long seconds = TimeUnit.NANOSECONDS.toSeconds(time);
+        time = time - TimeUnit.SECONDS.toNanos(seconds);
+
+        long millis = TimeUnit.NANOSECONDS.toMillis(time);
+        time = time - TimeUnit.MILLISECONDS.toNanos(millis);
+
+        long micros = TimeUnit.NANOSECONDS.toMicros(time);
+        time = time - TimeUnit.MICROSECONDS.toNanos(micros);
+
+        System.out.println("Query executed in " + seconds + "s " + millis + "ms " + micros + "micro");
     }
 
     /**
