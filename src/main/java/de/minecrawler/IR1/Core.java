@@ -36,7 +36,6 @@ public class Core {
         if (args.length > 0) {
             new ArgumentInterface(args);
         } else {
-            // TODO: Implement simple wizard interface
             new WizardInterface();
         }
     }
