@@ -55,36 +55,76 @@ import de.minecrawler.IR1.data.XMLDocument;
 import de.minecrawler.IR1.data.XMLDocumentList;
 import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
 
+/**
+ * Class handeling the parsing the xml document and providing a methode for
+ * searching
+ */
 public class InformationRetrievalSystem {
 
+    // Fields for the indecies
     private static final String FIELD_BODY = "body";
-    private static final String FIELD_TOPIC = "title";
+    private static final String FIELD_TITLE = "title";
     private static final String FIELD_DATE = "date";
     private static final String FIELD_ID = "id";
 
-    private static final String[] FIELDS = {FIELD_BODY, FIELD_TOPIC, FIELD_DATE};
+    private static final String[] FIELDS = {FIELD_BODY, FIELD_TITLE, FIELD_DATE};
 
+    // Parsed xml documents to start the search on
     private List<XMLDocument> xmlDocuments;
     private Map<BigInteger, XMLDocument> xmlDocumentMap;
 
     private static Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_45);
     private Directory dir;
 
+    /**
+     * Creates an information retrieval system based on the data from the file.
+     * The file must be a parseable
+     * 
+     * @param xmlFile
+     *            XML File to parse
+     * @throws Exception
+     */
     public InformationRetrievalSystem(File xmlFile) throws Exception {
         this(new FileInputStream(xmlFile));
     }
 
+    /**
+     * Creates an information retrieval system based on the data from the
+     * stream. The stream must provide xml based text data
+     * 
+     * @param stream
+     *            The stream providing xml based text data
+     * @throws Exception
+     */
     public InformationRetrievalSystem(InputStream stream) throws Exception {
         this.xmlDocumentMap = new HashMap<BigInteger, XMLDocument>();
 
         init(stream);
     }
 
+    /**
+     * Parse the stream and create the POJO from it. Based on the parsed
+     * documents, the index for searching will be created
+     * 
+     * @param source
+     *            Stream providing xml based text data
+     * @throws Exception
+     */
     private void init(InputStream source) throws Exception {
         xmlDocuments = loadXML(source);
         createIndex(xmlDocuments);
     }
 
+    /**
+     * Parse the XML data using JAXB and the classes {@link XMLDocument} and
+     * {@link XMLDocumentList}
+     * 
+     * @param source
+     *            Stream providing xml based text data
+     * @return List of parsed documents
+     * @throws JAXBException
+     * @throws Exception
+     */
     private List<XMLDocument> loadXML(InputStream source) throws JAXBException, Exception {
         // Nutzen der Object Factory
         JAXBContext jc = JAXBContext.newInstance(Core.XML_ENTITY_PACKAGE);
@@ -98,6 +138,13 @@ public class InformationRetrievalSystem {
         return sp.getDocuments();
     }
 
+    /**
+     * Creates an index about the documents for the information retrieval system
+     * 
+     * @param list
+     *            The document collection
+     * @throws IOException
+     */
     private void createIndex(List<XMLDocument> list) throws IOException {
 
         this.dir = new RAMDirectory();
@@ -114,21 +161,56 @@ public class InformationRetrievalSystem {
         iWriter.close();
     }
 
+    /**
+     * Add interesting and to index fields from the xml document to the
+     * information retrieval documents. <br>
+     * The fields are: <br>
+     * ID <br>
+     * DATE <br>
+     * TITLE <br>
+     * BODY <br>
+     * 
+     * @param doc
+     *            The document to add fields to
+     * @param xmlDocument
+     *            The xml document to extract the fields
+     */
     private void addFields(Document doc, XMLDocument xmlDocument) {
         doc.add(new Field(FIELD_ID, xmlDocument.getNewid().toString(), TextField.TYPE_STORED));
 
         if (xmlDocument.getDate() != null)
             doc.add(new Field(FIELD_DATE, DateTools.dateToString(xmlDocument.getDate().toDate(), Resolution.SECOND), TextField.TYPE_STORED));
         if (xmlDocument.getText().getTitle() != null)
-            doc.add(new Field(FIELD_TOPIC, xmlDocument.getText().getTitle(), TextField.TYPE_STORED));
+            doc.add(new Field(FIELD_TITLE, xmlDocument.getText().getTitle(), TextField.TYPE_STORED));
         if (xmlDocument.getText().getBody() != null)
             doc.add(new Field(FIELD_BODY, xmlDocument.getText().getBody(), TextField.TYPE_STORED));
     }
 
+    /**
+     * Start an search on the parsed documents using a query. The default limit
+     * is 10 results.
+     * 
+     * @param queryString
+     *            The query string <a href=
+     *            "http://lucene.apache.org/core/4_1_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html"
+     *            >Query Format</a>
+     * 
+     * @return Result list
+     */
     public ResultXMLDocumentList search(String queryString) {
         return search(queryString, 10);
     }
-
+    /**
+     * Start an search on the parsed documents using a query.
+     * 
+     * @param queryString
+     *            The query string <a href=
+     *            "http://lucene.apache.org/core/4_1_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html"
+     *            >Query Format</a>
+     * @param limit
+     *            The max result size
+     * @return Result list
+     */
     public ResultXMLDocumentList search(String queryString, int limit) {
         try {
             DirectoryReader ireader = DirectoryReader.open(this.dir);
@@ -136,13 +218,12 @@ public class InformationRetrievalSystem {
 
             QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_45, FIELDS, analyzer);
             Query query = parser.parse(queryString);
-            ScoreDoc[] hits = isearcher.search(query, null, 1000).scoreDocs;
+            ScoreDoc[] hits = isearcher.search(query, null, limit).scoreDocs;
             if (hits.length == 0)
                 return new ResultXMLDocumentList();
 
             ResultXMLDocumentList result = new ResultXMLDocumentList();
-//            List<XMLDocument> result = new ArrayList<XMLDocument>(hits.length);
-            for (int i = 0; i < hits.length && i < limit; ++i) {
+            for (int i = 0; i < hits.length; ++i) {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 XMLDocument xmlDoc = xmlDocumentMap.get(new BigInteger(hitDoc.get(FIELD_ID)));
                 result.addResult(xmlDoc, (i + 1), hits[i].score);
