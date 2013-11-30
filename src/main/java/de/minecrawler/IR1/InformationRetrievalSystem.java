@@ -56,12 +56,11 @@ import de.minecrawler.IR1.data.XMLDocumentList;
 import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
 
 /**
- * Class handeling the parsing the xml document and providing a methode for
- * searching
+ * Class handling the parsing of the xml document and providing a search method.
  */
 public class InformationRetrievalSystem {
 
-    // Fields for the indecies
+    // Fields for the indices
     private static final String FIELD_BODY = "body";
     private static final String FIELD_TITLE = "title";
     private static final String FIELD_DATE = "date";
@@ -77,11 +76,11 @@ public class InformationRetrievalSystem {
     private Directory dir;
 
     /**
-     * Creates an information retrieval system based on the data from the file.
-     * The file must be a parseable
+     * Creates an information retrieval system based on the data of the file.
+     * The file must be parseable.
      * 
      * @param xmlFile
-     *            XML File to parse
+     *            XML File to be parsed
      * @throws Exception
      */
     public InformationRetrievalSystem(File xmlFile) throws Exception {
@@ -89,8 +88,8 @@ public class InformationRetrievalSystem {
     }
 
     /**
-     * Creates an information retrieval system based on the data from the
-     * stream. The stream must provide xml based text data
+     * Creates an information retrieval system based on the data of the
+     * stream. The stream must provide xml based text data.
      * 
      * @param stream
      *            The stream providing xml based text data
@@ -103,8 +102,8 @@ public class InformationRetrievalSystem {
     }
 
     /**
-     * Parse the stream and create the POJO from it. Based on the parsed
-     * documents, the index for searching will be created
+     * Parses the stream and creates the POJO from it. Based on the parsed
+     * documents, the index for searching will be created.
      * 
      * @param source
      *            Stream providing xml based text data
@@ -116,7 +115,7 @@ public class InformationRetrievalSystem {
     }
 
     /**
-     * Parse the XML data using JAXB and the classes {@link XMLDocument} and
+     * Parses the XML data using JAXB and the classes {@link XMLDocument} and
      * {@link XMLDocumentList}
      * 
      * @param source
@@ -126,11 +125,11 @@ public class InformationRetrievalSystem {
      * @throws Exception
      */
     private List<XMLDocument> loadXML(InputStream source) throws JAXBException, Exception {
-        // Nutzen der Object Factory
+        // Using the Object Factory
         JAXBContext jc = JAXBContext.newInstance(Core.XML_ENTITY_PACKAGE);
         Unmarshaller unmarshaller = jc.createUnmarshaller();
 
-        // Parsing of XML
+        // Parsing the XML
         XMLDocumentList sp = (XMLDocumentList) unmarshaller.unmarshal(source);
         if (sp == null || sp.getDocuments().isEmpty()) {
             throw new Exception("No documents found");
@@ -139,7 +138,7 @@ public class InformationRetrievalSystem {
     }
 
     /**
-     * Creates an index about the documents for the information retrieval system
+     * Creates indices for the documents for the information retrieval system.
      * 
      * @param list
      *            The document collection
@@ -162,7 +161,7 @@ public class InformationRetrievalSystem {
     }
 
     /**
-     * Add interesting and to index fields from the xml document to the
+     * Adds interesting information to the index fields from the xml document to the
      * information retrieval documents. <br>
      * The fields are: <br>
      * ID <br>
@@ -187,29 +186,29 @@ public class InformationRetrievalSystem {
     }
 
     /**
-     * Start an search on the parsed documents using a query. The default limit
-     * is 10 results.
+     * Starts a search on the parsed documents using a search query. The default maximum number of results
+     * is 10.
      * 
      * @param queryString
      *            The query string <a href=
      *            "http://lucene.apache.org/core/4_1_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html"
      *            >Query Format</a>
      * 
-     * @return Result list
+     * @return List of results
      */
     public ResultXMLDocumentList search(String queryString) {
         return search(queryString, 10);
     }
     /**
-     * Start an search on the parsed documents using a query.
+     * Starts a search on the parsed documents using a search query.
      * 
      * @param queryString
      *            The query string <a href=
      *            "http://lucene.apache.org/core/4_1_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html"
      *            >Query Format</a>
      * @param limit
-     *            The max result size
-     * @return Result list
+     *            The maximum numer of results
+     * @return List of results
      */
     public ResultXMLDocumentList search(String queryString, int limit) {
         try {
@@ -235,7 +234,6 @@ public class InformationRetrievalSystem {
             e.printStackTrace();
             return new ResultXMLDocumentList();
         } catch (ParseException e) {
-            // TODO: Use logger
             System.out.println("Wrong query! Check your query format!");
             System.out.println(e.getMessage());
             return new ResultXMLDocumentList();
