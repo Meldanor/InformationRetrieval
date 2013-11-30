@@ -31,7 +31,7 @@ import javax.xml.bind.Marshaller;
 import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
 
 /**
- * Class to provide a user friendly console based interface
+ * Class to provide a user friendly, console based interface.
  */
 public class WizardInterface {
 
@@ -39,7 +39,7 @@ public class WizardInterface {
 
     /**
      * Start the wizard interface. Ask the user for the different values and
-     * options and execute the query
+     * options and execute the query.
      */
     public WizardInterface() {
         scanner = new Scanner(System.in);
@@ -53,10 +53,10 @@ public class WizardInterface {
     }
 
     /**
-     * Ask for the data source (the xml formatted data)
+     * Ask for the data source (the xml formatted data).
      * 
-     * @return User defined filestream to the xml file. If no one is defined,
-     *         the default one (reut2-000.xml) will be used
+     * @return User defined filestream written to the xml file. If no one is defined,
+     *         the default one (reut2-000.xml) will be used.
      */
     private InputStream askSource() {
         System.out.println("File to XML file(enter nothing for standard file in jar)");
@@ -76,10 +76,10 @@ public class WizardInterface {
     }
 
     /**
-     * Ask the user to a filepath, where to put the results
+     * Ask the user for a filepath, where the results should be saved.
      * 
      * @return User defined filepath, <code>null</code> if the user enters
-     *         nothing and it will be printed on console
+     *         nothing. It will be printed on console.
      */
     private String askOutput() {
         System.out.println("Path to output file. Will override if existing. (Enter nothing for console output)");
@@ -90,9 +90,9 @@ public class WizardInterface {
     }
 
     /**
-     * Ask the user for the maximum results to return from the search.
+     * Ask the user for the maximum number of results to return.
      * 
-     * @return The maximum results of the search, 10 by default
+     * @return The maximum number of results of the search, 10 by default
      */
     private int askLimit() {
         System.out.println("Max number of results to print(Enter nothing for default 10 results)");
@@ -108,7 +108,7 @@ public class WizardInterface {
     }
 
     /**
-     * @return The query the user wants to execute
+     * @return The query to be executed
      */
     private String askQuery() {
         System.out.println("Enter your search query");
@@ -117,18 +117,18 @@ public class WizardInterface {
     }
 
     /**
-     * Execute the query on the informational retrieving system using the asked
-     * value
+     * Execute the query on the information retrieval system using the entered
+     * values.
      * 
      * @param source
-     *            The stream to the xml file
+     *            The stream to read from the xml file
      * @param output
-     *            Where to put the results, <code>null</code> when to print on
+     *            Path to the output file, <code>null</code> if to print on
      *            console
      * @param limit
      *            The maximum number of results
      * @param query
-     *            The query to execute
+     *            The query to be executed
      */
     private void startQuery(InputStream source, String output, int limit, String query) {
         System.out.println("Query: " + query);
@@ -167,8 +167,7 @@ public class WizardInterface {
     }
 
     /**
-     * Print the time formatted as seconds, milliseconds and microseconds the
-     * query needed to execute
+     * Print the time, formatted as seconds, milliseconds and microseconds, it took to execute the query.
      * 
      * @param time
      *            The time in nano seconds
