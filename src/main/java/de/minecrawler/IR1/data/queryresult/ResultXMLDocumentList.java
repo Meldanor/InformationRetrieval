@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import de.minecrawler.IR1.data.XMLDocument;
 
 /**
- * Wrapper class to hold a list of the type {@link ResultXMLDocument}
+ * Wrapper class to hold a list of the type {@link ResultXMLDocument}.
  */
 @XmlRootElement(name = "resultList")
 public class ResultXMLDocumentList implements Iterable<ResultXMLDocument> {
@@ -37,15 +37,15 @@ public class ResultXMLDocumentList implements Iterable<ResultXMLDocument> {
     private List<ResultXMLDocument> results;
 
     /**
-     * Constructs an empty wrapper class for results. Add them via
-     * {@link #addResult(XMLDocument, int, float)}
+     * Constructs an empty wrapper class for results. Adds them via
+     * {@link #addResult(XMLDocument, int, float)}.
      */
     public ResultXMLDocumentList() {
         results = new ArrayList<ResultXMLDocument>();
     }
 
     /**
-     * Add a single result to the wrapper class
+     * Adds a single result to the wrapper class
      * 
      * @param doc
      *            The document itself
