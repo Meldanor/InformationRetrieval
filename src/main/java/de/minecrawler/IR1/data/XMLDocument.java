@@ -90,7 +90,7 @@ public class XMLDocument {
     }
 
     /**
-     * @return Some notes of someone for the documents(changes for example)
+     * @return Some notes of someone about the documents (for example changes)
      */
     public String getMknote() {
         return mknote;
@@ -186,7 +186,7 @@ public class XMLDocument {
     }
 
     /**
-     * @return A auto incrementing id of the document
+     * @return An auto incrementing id of the document
      */
     public BigInteger getNewid() {
         return newid;
@@ -229,7 +229,7 @@ public class XMLDocument {
         }
     }
 
-    // Helper class to convert the values seperated by D's to a String list
+    // Helper class to convert the values separated by D's to a String list
     private static class DList {
 
         @XmlElement(name = "D")
