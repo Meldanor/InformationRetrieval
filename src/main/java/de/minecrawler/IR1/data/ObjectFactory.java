@@ -47,7 +47,7 @@ public class ObjectFactory {
     private final static QName _TEXTTITLE_QNAME = new QName("", "TITLE");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of
+     * Creates a new ObjectFactory that can be used to create new instances of
      * schema derived classes for package: de.minecrawler.IR1.data
      * 
      */
@@ -55,7 +55,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link XMLDocumentList }
+     * Creates an instance of {@link XMLDocumentList }.
      * 
      */
     public XMLDocumentList createLEWIS() {
@@ -63,7 +63,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link XMLDocument }
+     * Creates an instance of {@link XMLDocument }.
      * 
      */
     public XMLDocument createREUTERS() {
@@ -79,7 +79,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link XMLText }
+     * Creates an instance of {@link XMLText }.
      * 
      */
     public XMLText createTEXT() {
@@ -87,7 +87,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "D")
@@ -97,7 +97,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "ORGS")
@@ -106,7 +106,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "TOPICS")
@@ -115,7 +115,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "COMPANIES")
@@ -124,7 +124,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "MKNOTE")
@@ -133,7 +133,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "UNKNOWN")
@@ -142,7 +142,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "PLACES")
@@ -151,7 +151,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "DATE")
@@ -160,7 +160,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "PEOPLE")
@@ -169,7 +169,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "EXCHANGES")
@@ -178,7 +178,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "AUTHOR", scope = XMLText.class)
@@ -187,7 +187,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "BODY", scope = XMLText.class)
@@ -196,7 +196,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "DATELINE", scope = XMLText.class)
@@ -205,7 +205,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * Creates an instance of {@link JAXBElement }{@code <}{@link String }{@code >}.
      * 
      */
     @XmlElementDecl(namespace = "", name = "TITLE", scope = XMLText.class)
