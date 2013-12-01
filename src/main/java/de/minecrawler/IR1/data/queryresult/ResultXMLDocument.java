@@ -26,7 +26,7 @@ import de.minecrawler.IR1.data.XMLDocument;
 
 /**
  * Wrapper class to store the rank and the relevance score within the xml
- * document
+ * document.
  */
 @XmlRootElement(name = "result")
 @XmlType(name = "", propOrder = {"rank", "relevanceScore", "doc"})
@@ -47,8 +47,8 @@ public class ResultXMLDocument {
     }
 
     /**
-     * Creates an wrapper class to hold also the information about the rank and
-     * the relevance
+     * Creates a wrapper class to hold also the information about the rank and
+     * the relevance.
      * 
      * @param doc
      *            The document itself to wrap
@@ -78,7 +78,7 @@ public class ResultXMLDocument {
     }
 
     /**
-     * @return The score in the list determing its rank
+     * @return The score in the list determining its rank
      */
     public float getRelevanceScore() {
         return relevanceScore;
