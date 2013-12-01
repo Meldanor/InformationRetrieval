@@ -45,7 +45,7 @@ public class ResultXMLDocumentList implements Iterable<ResultXMLDocument> {
     }
 
     /**
-     * Adds a single result to the wrapper class
+     * Adds a single result to the wrapper class.
      * 
      * @param doc
      *            The document itself
