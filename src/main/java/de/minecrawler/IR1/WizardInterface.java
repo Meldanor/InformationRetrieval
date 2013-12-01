@@ -38,8 +38,8 @@ public class WizardInterface {
     private Scanner scanner;
 
     /**
-     * Start the wizard interface. Ask the user for the different values and
-     * options and execute the query.
+     * Starts the wizard interface. Asks the user for the different values and
+     * options and executes the query.
      */
     public WizardInterface() {
         scanner = new Scanner(System.in);
@@ -53,7 +53,7 @@ public class WizardInterface {
     }
 
     /**
-     * Ask for the data source (the xml formatted data).
+     * Asks for the data source (the xml formatted data).
      * 
      * @return User defined filestream written to the xml file. If no one is defined,
      *         the default one (reut2-000.xml) will be used.
@@ -76,7 +76,7 @@ public class WizardInterface {
     }
 
     /**
-     * Ask the user for a filepath, where the results should be saved.
+     * Asks the user for a filepath, where the results should be saved.
      * 
      * @return User defined filepath, <code>null</code> if the user enters
      *         nothing. It will be printed on console.
@@ -90,7 +90,7 @@ public class WizardInterface {
     }
 
     /**
-     * Ask the user for the maximum number of results to return.
+     * Asks the user for the maximum number of results to return.
      * 
      * @return The maximum number of results of the search, 10 by default
      */
@@ -117,7 +117,7 @@ public class WizardInterface {
     }
 
     /**
-     * Execute the query on the information retrieval system using the entered
+     * Executes the query on the information retrieval system using the entered
      * values.
      * 
      * @param source
@@ -167,7 +167,7 @@ public class WizardInterface {
     }
 
     /**
-     * Print the time, formatted as seconds, milliseconds and microseconds, it took to execute the query.
+     * Prints the time, formatted as seconds, milliseconds and microseconds, it took to execute the query.
      * 
      * @param time
      *            The time in nano seconds
