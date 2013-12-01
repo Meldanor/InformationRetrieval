@@ -33,7 +33,7 @@ public class XMLText {
     private String dateline;
 
     /**
-     * @return The type of the text(for example a letter)
+     * @return The type of the text (for example a letter)
      */
     public String getType() {
         return type;
@@ -61,7 +61,7 @@ public class XMLText {
     }
 
     /**
-     * @return The text itselfs
+     * @return The text itself
      */
     public String getBody() {
         return body;
