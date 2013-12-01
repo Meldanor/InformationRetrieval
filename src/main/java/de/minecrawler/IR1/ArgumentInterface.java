@@ -38,7 +38,7 @@ import org.apache.commons.cli.PosixParser;
 import de.minecrawler.IR1.data.queryresult.ResultXMLDocumentList;
 
 /**
- * Handler for using console arguments to start the information retrieval
+ * Handler for using console arguments to start the information retrieval.
  * 
  * @author Meldanor
  * 
@@ -51,7 +51,7 @@ public class ArgumentInterface {
     private Options options;
 
     /**
-     * Starts the interface using the console arguments
+     * Starts the interface using the console arguments.
      * 
      * @param args
      *            The arguments from the console
@@ -62,7 +62,7 @@ public class ArgumentInterface {
     }
 
     /**
-     * Create possible options to parse
+     * Creates possible options to parse.
      * 
      * @return Container with all information about possible options
      */
@@ -71,8 +71,8 @@ public class ArgumentInterface {
 
         // Option -f or --file defining the xml file to parse
         options.addOption("f", "file", true, "XML file to parse");
-        // Option -c or --console say, the output will be presented on the
-        // console instead of a file
+        // Option -c or --console says, that the output will be presented on the
+        // console instead of creating a result file.
         options.addOption("c", "console", false, "Query output is in the console");
 
         options.addOption("l", "limit", true, "Number of max results");
@@ -85,7 +85,7 @@ public class ArgumentInterface {
         CommandLineParser parser = new PosixParser();
         // If no other file is defined, use the standard file
         InputStream xmlStream = getClass().getResourceAsStream("/reut2-000.xml");
-        // Show the query output on the console?
+        // Shows the query output on the console
         boolean showInConsole = false;
 
         int limit = 10;
@@ -111,7 +111,7 @@ public class ArgumentInterface {
                 }
             }
 
-            // Show the query output on the console?
+            // Shows the query output on the console
             showInConsole = line.hasOption("console");
 
             // Non parsed arguments are the query
@@ -128,12 +128,12 @@ public class ArgumentInterface {
     }
 
     /**
-     * Append all non parsed arguments from the console to one single string,
-     * the query
+     * Connects all non parsed arguments from the console to one single string,
+     * the query.
      * 
      * @param args
-     *            The non parsed argumetns
-     * @return One string containing all other strings seperated by a whitespace
+     *            The non parsed arguments
+     * @return One string containing all other strings separated by a whitespace
      */
     private String buildQuery(String[] args) {
         StringBuilder sBuilder = new StringBuilder();
@@ -148,16 +148,16 @@ public class ArgumentInterface {
     }
 
     /**
-     * Start the query
+     * Starts the query
      * 
      * @param xmlFile
-     *            The xml file as a data base to search on
+     *            The xml file as a database to search on
      * @param showInConsole
-     *            Show the output on the console?
+     *            Shows the output on the console
      * @param query
-     *            The query to execute
+     *            The query to be executed
      * @param limit
-     *            Max number of results to display
+     *            Maximum number of results to display
      */
     private void startQuery(InputStream xmlFile, boolean showInConsole, String query, int limit) {
         InformationRetrievalSystem irSystem = null;
@@ -176,15 +176,15 @@ public class ArgumentInterface {
     }
 
     /**
-     * Show the results
+     * Shows the results
      * 
      * @param showInConsole
-     *            Show the output on the console?<br>
-     *            If <code>false</code> the output will be written in a file
+     *            Show the output on the console<br>
+     *            If <code>false</code> the output will be written into a file
      * @param result
      *            The result of the query
      * @param time
-     *            The time of query to execute
+     *            The time the query needs to be executed
      */
     private void showResults(boolean showInConsole, ResultXMLDocumentList result, long time) {
         System.out.println("Results: " + result.size());
@@ -219,7 +219,7 @@ public class ArgumentInterface {
     }
 
     /**
-     * @return A not used file as ouput
+     * @return A not used file as output
      */
     private File createResultFile() {
         for (int i = 0;; ++i) {
