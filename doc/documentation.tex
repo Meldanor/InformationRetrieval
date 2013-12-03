@@ -1,0 +1,51 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{enumerate}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{hyperref}
+ 
+\title{MineCrawler}
+\subtitle{Query on XML file}
+\author{
+  Tabea Treutwein\\
+  \texttt{tabea.treutwein@st.ovgu.de}\\
+  \and
+  Dennis Meyer\\
+  \texttt{dennis.meyer@st.ovgu.de}\\
+  \and
+  Alexander Simmer\\
+  \texttt{asimmer@st.ovgu.de}\\
+  \and
+  Kilian Gärtner\\
+  \texttt{kilian.gaertner@st.ovgu.de}\\
+}
+
+\date{\today}
+ 
+\begin{document}
+\maketitle
+ 
+\section{Aufgabe}
+Die Aufgabe bestand daraus, eine Suchanfrage auf eine Dokumentensammlung anzuwenden. Die Dokumentensammlung lag als XML kodierte. Diese sollte dann geparsed werden und auf den erhaltenen Dokumenten die Suchanfrage ausgeführt werden. Das Parsing war offen gelassen, wir haben uns für die Java Standardimplementierung JAXB entschieden. \\
+Für die Suchanfrage sollte mit der Bibliothek "Apache Lucene" ein Index erstellt und dann auf diesem die Suchanfrage ausgeführt werden.
+ 
+\section{Bedienung}
+Wird das Java Programm ohne Argumente von der Konsole gestartet, wird der User nach den verschiedenen Parametern wie maximale Anzahl der Resultate oder der Query gefragt. Dies ist intuitiv und wird hier nicht weiter erklärt.\\
+Das Java Programm kann auch rein von der Konsole über Argumente ausgeführt werden. 
+Die Reihenfolge der Optionen ist egal, das letzte Argument wird als Query gewertet.
+Hier eine Auflistung der möglichen Optionen:\\\\
+-l [ZAHL] Maximale Anzahl der Resultate. Standardmäßig werden die Top 10 Resultate ausgegeben.\\
+-c Ausgabe der Ergebnisse auf der Konsole statt in einer Datei. Standardmäßig erfolgt die Ausgabe in eine Datei resultX.xml\\
+-f [PFAD] Pfad zur XML Datei. Standard ist die mitgelieferte reut2-000.xml Datei in der .jar\\
+Die Ausgabe erfolgt immer in eine XML Datei und das Format dieser entspricht der mitgelieferten reut2-000.xml.
+\section{Bibliotheken}
+Die benutzen Bibliotheken sind:
+\begin{enumerate}
+	\item \href{http://lucene.apache.org/}{Apache Lucene} - Erstellung des Index und Ausführung der Suchanfrage
+	\item \href{http://www.joda.org/joda-time/}{JodaTime} - Für Verarbeitung von Datumsangaben im Dokument
+	\item \href{http://commons.apache.org/proper/commons-cli/}{Apache Commons CLI} - Auswerten der Argumente von der Konsole
+\end{enumerate}
+
+\end{document}
