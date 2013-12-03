@@ -28,18 +28,12 @@
 \maketitle
  
 \section{Task}
-The task was to do a search query on a document collection. The collection was in XML encoded and was given. The user should be able to enter a search query, which should be executed on the parsed collection. 
-How to parse the documents was not given, so we choose the standard ava implementation JAXB to read and write XML. \\
-For the indexing and executing the parsing was the library Apache Lucene given.
+The main task of this project was to perform a search query on a collection of documents, which is given as a XML document. The user should be able to perform search queries on this collection.
 
-%\section{Aufgabe}
-%Die Aufgabe bestand daraus, eine Suchanfrage auf eine Dokumentensammlung anzuwenden. Die Dokumentensammlung lag als XML kodierte. Diese sollte dann geparsed werden und auf den erhaltenen Dokumenten die Suchanfrage ausgeführt werden. Das Parsing war offen gelassen, wir haben uns für die Java Standardimplementierung JAXB entschieden. \\
-%Für die Suchanfrage sollte mit der Bibliothek "Apache Lucene" ein Index erstellt und dann auf diesem die Suchanfrage ausgeführt werden.
+Since no parsing method was specified, we chose the standart Java Library JAXB to read and write XML files. For the indexing and parsing of the collection we were required to use the Apache Lucene library.
 
 \section{Usage}
-The user can start the java programm without any arguments, he will be asked for the options like the number of results or the query itself. This is so simple, we will not explain this here, just try it :) \\
-If the user doesn't want to use this simple interface, he can control the program with arguments. The order of the arguments is not relevant, the last parameter will be interpreted as the query.
-The followning options are possible
+The Java executable accepts the following arguments:
 
 \begin{description}
   \item[-l NUMBER] \hfill \\
@@ -50,14 +44,7 @@ The followning options are possible
   The path to the xml file to parse. Standard is the given xml file (in the jar) reut2-000.xml
 \end{description}
 
-%Wird das Java Programm ohne Argumente von der Konsole gestartet, wird der User nach den verschiedenen Parametern wie maximale Anzahl der Resultate oder der Query gefragt. Dies ist intuitiv und wird hier nicht weiter erklärt.\\
-%Das Java Programm kann auch rein von der Konsole über Argumente ausgeführt werden. 
-%Die Reihenfolge der Optionen ist egal, das letzte Argument wird als Query gewertet.
-%Hier eine Auflistung der möglichen Optionen:\\\\
-%-l [ZAHL] Maximale Anzahl der Resultate. Standardmäßig werden die Top 10 Resultate ausgegeben.\\
-%-c Ausgabe der Ergebnisse auf der Konsole statt in einer Datei. Standardmäßig erfolgt die Ausgabe in eine Datei resultX.xml\\
-%-f [PFAD] Pfad zur XML Datei. Standard ist die mitgelieferte reut2-000.xml Datei in der .jar\\
-%Die Ausgabe erfolgt immer in eine XML Datei und das Format dieser entspricht der mitgelieferten reut2-000.xml.
+Note that the order of the arguments does not matter. In case none of these arguments are specified, the user will be prompted to enter additional parameters (i.e. number of results, search query). Those are quite self-explanatory and will therefore not be elaborated here.
 
 \subsection{Query format}
 The query format is defined by the used Library Apache Lucene and can be found \href{http://lucene.apache.org/core/4_6_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description}{on this website}.  \\
@@ -69,15 +56,7 @@ The possible search fields are
 	\item body
 \end{itemize}
 
-%\section{Bedienung}
-%Wird das Java Programm ohne Argumente von der Konsole gestartet, wird der User nach den verschiedenen Parametern wie maximale Anzahl der Resultate oder der Query gefragt. Dies ist intuitiv und wird hier nicht weiter erklärt.\\
-%Das Java Programm kann auch rein von der Konsole über Argumente ausgeführt werden. 
-%Die Reihenfolge der Optionen ist egal, das letzte Argument wird als Query gewertet.
-%Hier eine Auflistung der möglichen Optionen:\\\\
-%-l [ZAHL] Maximale Anzahl der Resultate. Standardmäßig werden die Top 10 Resultate ausgegeben.\\
-%-c Ausgabe der Ergebnisse auf der Konsole statt in einer Datei. Standardmäßig erfolgt die Ausgabe in eine Datei resultX.xml\\
-%-f [PFAD] Pfad zur XML Datei. Standard ist die mitgelieferte reut2-000.xml Datei in der .jar\\
-%Die Ausgabe erfolgt immer in eine XML Datei und das Format dieser entspricht der mitgelieferten reut2-000.xml.
+%Eventuell anders formatieren, Itemization ist hier eher unpassend, es sei denn ihr wollt noch Beschreibungen wie unter "Usage" hinzufügen.
 
 \section{Libraries}
 The used libraries for this project are
