@@ -29,10 +29,13 @@
  
 \section{Task}
 The main task of this project was to perform a search query on a collection of documents, which is given as a XML document. The user should be able to perform search queries on this collection.
-
 Since no parsing method was specified, we chose the standart Java Library JAXB to read and write XML files. For the indexing and parsing of the collection we were required to use the Apache Lucene library.
 
 \section{Usage}
+The Java executable is a console based program, you have to run it from the console with
+\begin{verbatim}
+java -jar IR13_Assigment_1.1_MineCrawler.jar
+\end{verbatim}
 The Java executable accepts the following arguments:
 
 \begin{description}
@@ -43,7 +46,6 @@ The Java executable accepts the following arguments:
   \item[-f PATH] \hfill \\
   The path to the xml file to parse. Standard is the given xml file (in the jar) reut2-000.xml
 \end{description}
-
 Note that the order of the arguments does not matter. In case none of these arguments are specified, the user will be prompted to enter additional parameters (i.e. number of results, search query). Those are quite self-explanatory and will therefore not be elaborated here.
 
 \subsection{Query format}
@@ -56,8 +58,11 @@ The possible search fields are
 	\item body
 \end{itemize}
 
-%Eventuell anders formatieren, Itemization ist hier eher unpassend, es sei denn ihr wollt noch Beschreibungen wie unter "Usage" hinzufügen.
-
+\section{Process of Solution}
+The programm asks the user for the necessary information (i.e. query or the data source) via the arguments(class ArgumentInterface) or a little wizard(class WizardInterface). This information is used to creating an instance of the class InformationRetrieval. The class will parse the XML file using the JAXB Marshaller. The JAXB will map the information from the XML file to objects of the class defined in the package de.minecrawler.IR1.data, for example the class XMLDocument. This class represents a single document from the reuters collection. \\
+After parsing the document, an index will be created using the Apache Lucene. The index contains the fields id, date, title or the body(text itself) of the document. Please note, that the index exists only in the memory and will not be saved on the hard drive! \\
+Now the index process is finished, the query will be executed on the index. We use a MutliFieldQueryParser instead a standard parser to search on all fields at the same time. This will increase the result size and help the user to find their information.\\
+The result list will be returned as XML formatted documents and provide a score, the match score and the complete content from the reuters collections. The process is done.
 \section{Libraries}
 The used libraries for this project are
 
@@ -66,13 +71,5 @@ The used libraries for this project are
 	\item \href{http://www.joda.org/joda-time/}{JodaTime} - For easier date handeling(normal java implementation isn't the best...)
 	\item \href{http://commons.apache.org/proper/commons-cli/}{Apache Commons CLI} - Easy parsing of console arguments in POSIX style
 \end{enumerate}
-
-%\section{Bibliotheken}
-%Die benutzen Bibliotheken sind:
-%\begin{enumerate}
-%	\item \href{http://lucene.apache.org/}{Apache Lucene} - Erstellung des Index und Ausführung der Suchanfrage
-%	\item \href{http://www.joda.org/joda-time/}{JodaTime} - Für Verarbeitung von Datumsangaben im Dokument
-%	\item \href{http://commons.apache.org/proper/commons-cli/}{Apache Commons CLI} - Auswerten der Argumente von der Konsole
-%\end{enumerate}
 
 \end{document}
