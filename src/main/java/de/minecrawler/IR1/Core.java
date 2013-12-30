@@ -18,15 +18,7 @@
 
 package de.minecrawler.IR1;
 
-/*
- * Information:
- * XML -> XSD with trang (http://www.thaiopensource.com/relaxng/trang.html)
- * XSD -> JABX POJO with xjc
- */
-
 public class Core {
-
-    public static final String XML_ENTITY_PACKAGE = "de.minecrawler.IR1.data";
 
     public static void main(String[] args) {
         System.out.println("===============");
