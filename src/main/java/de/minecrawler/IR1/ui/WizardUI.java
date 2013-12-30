@@ -16,7 +16,7 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1;
+package de.minecrawler.IR1.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +25,7 @@ import java.util.Scanner;
 /**
  * Class to provide a user friendly, console based interface.
  */
-public class WizardInterface extends AbstractUI {
+public class WizardUI extends AbstractUI {
 
     private Scanner scanner;
 
@@ -33,7 +33,7 @@ public class WizardInterface extends AbstractUI {
      * Starts the wizard interface. Asks the user for the different values and
      * options and executes the query.
      */
-    public WizardInterface() {
+    public WizardUI() {
         scanner = new Scanner(System.in);
         URL seed = askSeed();
         boolean printOnConsole = askConsole();

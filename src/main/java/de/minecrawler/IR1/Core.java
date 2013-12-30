@@ -18,6 +18,9 @@
 
 package de.minecrawler.IR1;
 
+import de.minecrawler.IR1.ui.ArgumentUI;
+import de.minecrawler.IR1.ui.WizardUI;
+
 public class Core {
 
     public static void main(String[] args) {
@@ -26,9 +29,9 @@ public class Core {
         System.out.println("===============");
 
         if (args.length > 0) {
-            new ArgumentInterface(args);
+            new ArgumentUI(args);
         } else {
-            new WizardInterface();
+            new WizardUI();
         }
     }
 }

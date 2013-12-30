@@ -16,7 +16,7 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1;
+package de.minecrawler.IR1.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,7 +34,7 @@ import org.apache.commons.cli.PosixParser;
  * @author Meldanor
  * 
  */
-public class ArgumentInterface extends AbstractUI {
+public class ArgumentUI extends AbstractUI {
 
     /**
      * Possible argument options
@@ -47,7 +47,7 @@ public class ArgumentInterface extends AbstractUI {
      * @param args
      *            The arguments from the console
      */
-    public ArgumentInterface(String[] args) {
+    public ArgumentUI(String[] args) {
         this.options = createOptions();
         handleArguments(args);
     }

@@ -16,7 +16,7 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1;
+package de.minecrawler.IR1.ui;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import de.minecrawler.IR1.Crawler;
+import de.minecrawler.IR1.InformationRetrievalSystem;
 import de.minecrawler.IR1.data.CrawledWebsiteResult;
 
 public abstract class AbstractUI {
