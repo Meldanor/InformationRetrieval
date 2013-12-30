@@ -16,7 +16,7 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1;
+package de.minecrawler;
 
 import java.net.URI;
 import java.net.URL;
@@ -26,7 +26,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import de.minecrawler.IR1.data.CrawledWebsite;
+import de.minecrawler.data.CrawledWebsite;
 
 public class Crawler {
 

@@ -16,7 +16,7 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1;
+package de.minecrawler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,8 +44,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-import de.minecrawler.IR1.data.CrawledWebsite;
-import de.minecrawler.IR1.data.CrawledWebsiteResult;
+import de.minecrawler.data.CrawledWebsite;
+import de.minecrawler.data.CrawledWebsiteResult;
 
 /**
  * Class handling the parsing of the xml document and providing a search method.

@@ -16,7 +16,7 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1.ui;
+package de.minecrawler.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;

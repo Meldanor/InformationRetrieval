@@ -16,22 +16,35 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1;
+package de.minecrawler.data;
 
-import de.minecrawler.IR1.ui.ArgumentUI;
-import de.minecrawler.IR1.ui.WizardUI;
+import java.net.URI;
 
-public class Core {
+public class CrawledWebsite {
 
-    public static void main(String[] args) {
-        System.out.println("===============");
-        System.out.println("= MINECRAWLER =");
-        System.out.println("===============");
+    private String body;
+    private String text;
+    private URI uri;
 
-        if (args.length > 0) {
-            new ArgumentUI(args);
-        } else {
-            new WizardUI();
-        }
+    public CrawledWebsite(String body, String text, URI uri) {
+        this.body = body;
+        this.text = text;
+        this.uri = uri;
+    }
+
+    public CrawledWebsite(String body, String text, String uri) {
+        this(body, text, URI.create(uri));
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public URI getURI() {
+        return uri;
     }
 }

@@ -16,7 +16,7 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler.IR1.data;
+package de.minecrawler.data;
 
 public class CrawledWebsiteResult {
 
