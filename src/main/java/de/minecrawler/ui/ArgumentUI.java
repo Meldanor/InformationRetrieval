@@ -109,7 +109,7 @@ public class ArgumentUI extends AbstractUI {
             args = line.getArgs();
             String query = buildQuery(args);
 
-            startCrawler(seed, depth, showInConsole, query);
+            startSearch(seed, depth, showInConsole, query);
         } catch (ParseException e) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("", options);

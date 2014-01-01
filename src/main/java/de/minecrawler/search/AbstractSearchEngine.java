@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013
+ * Copyright (C) 2014
  * 
  * This file is part of InformationRetrieval.
  * 
@@ -16,24 +16,17 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler;
+package de.minecrawler.search;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.FieldType;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -41,70 +34,30 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
 import de.minecrawler.data.CrawledWebsite;
 import de.minecrawler.data.CrawledWebsiteResult;
 
-/**
- * Class handling the parsing of the xml document and providing a search method.
- */
-public class InformationRetrievalSystem {
+public abstract class AbstractSearchEngine {
+
+    public AbstractSearchEngine(Object... args) throws Exception {
+        this.dir = createDirectory();
+    }
 
     // Fields for the indices
-    private static final String FIELD_TITLE = "title";
-    private static final String FIELD_BODY = "body";
-    private static final String FIELD_URI = "uri";
+    protected static final String FIELD_TITLE = "title";
+    protected static final String FIELD_BODY = "body";
+    protected static final String FIELD_URI = "uri";
 
     private static final String[] FIELDS = {FIELD_BODY, FIELD_TITLE};
 
-    // Only stored but not index type (reference on the uri)
-    private static FieldType TYPE_ONLY_STORED = new FieldType();
+    protected final static Version LUCENE_VERSION = Version.LUCENE_46;
+    protected final static Analyzer ANALYZER = new StandardAnalyzer(LUCENE_VERSION);
 
-    static {
-        TYPE_ONLY_STORED.setStored(true);
-        TYPE_ONLY_STORED.setIndexed(false);
-        TYPE_ONLY_STORED.setTokenized(false);
-        TYPE_ONLY_STORED.freeze();
-    }
+    protected Directory dir;
 
-    private static Version LUCENE_VERSION = Version.LUCENE_46;
-    private static Analyzer ANALYZER = new StandardAnalyzer(LUCENE_VERSION);
-
-    private Directory dir;
-    private IndexWriter indexWriter;
-    private Map<String, CrawledWebsite> websiteMap;
-
-    public InformationRetrievalSystem() throws Exception {
-        createDirectory();
-        this.websiteMap = new HashMap<String, CrawledWebsite>();
-    }
-
-    private void createDirectory() throws Exception {
-        this.dir = new RAMDirectory();
-
-        IndexWriterConfig conf = new IndexWriterConfig(LUCENE_VERSION, ANALYZER);
-        this.indexWriter = new IndexWriter(this.dir, conf);
-    }
-
-    public void addWebsite(CrawledWebsite website) {
-        Document document = new Document();
-
-        try {
-            this.websiteMap.put(website.getURI().toString(), website);
-            addFields(document, website);
-            indexWriter.addDocument(document);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void addFields(Document doc, CrawledWebsite website) {
-        doc.add(new Field(FIELD_BODY, website.getBody(), TextField.TYPE_STORED));
-        doc.add(new Field(FIELD_TITLE, website.getText(), TextField.TYPE_STORED));
-        doc.add(new Field(FIELD_URI, website.getURI().toString(), TYPE_ONLY_STORED));
-    }
+    protected abstract Directory createDirectory(Object... args);
 
     /**
      * Starts a search on the parsed documents using a search query. The default
@@ -140,14 +93,12 @@ public class InformationRetrievalSystem {
             QueryParser parser = new MultiFieldQueryParser(LUCENE_VERSION, FIELDS, ANALYZER);
             Query query = parser.parse(queryString);
             ScoreDoc[] hits = isearcher.search(query, null, limit).scoreDocs;
-            if (hits.length == 0)
-                return Collections.<CrawledWebsiteResult> emptyList();
 
             List<CrawledWebsiteResult> result = new ArrayList<CrawledWebsiteResult>();
             for (int i = 0; i < hits.length; ++i) {
                 Document hitDoc = isearcher.doc(hits[i].doc);
-                CrawledWebsite webSite = websiteMap.get(hitDoc.get(FIELD_URI));
-                result.add(new CrawledWebsiteResult(webSite, i + 1, hits[i].score));
+                CrawledWebsite website = extractWebsite(hitDoc);
+                result.add(new CrawledWebsiteResult(website, i + 1, hits[i].score));
             }
 
             ireader.close();
@@ -161,4 +112,9 @@ public class InformationRetrievalSystem {
             return Collections.<CrawledWebsiteResult> emptyList();
         }
     }
+
+    protected CrawledWebsite extractWebsite(Document doc) {
+        return new CrawledWebsite(doc.get(FIELD_BODY), doc.get(FIELD_TITLE), doc.get(FIELD_URI));
+    }
+
 }

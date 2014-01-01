@@ -25,8 +25,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import de.minecrawler.Crawler;
-import de.minecrawler.InformationRetrievalSystem;
+import de.minecrawler.IRSystem;
 import de.minecrawler.data.CrawledWebsiteResult;
 
 public abstract class AbstractUI {
@@ -35,21 +34,22 @@ public abstract class AbstractUI {
 
     }
 
-    protected void startCrawler(URL seed, int maxDepth, boolean printOnConsole, String query) {
-        InformationRetrievalSystem irSystem = null;
+    protected void startSearch(URL seed, int maxDepth, boolean printOnConsole, String query) {
         long time = System.nanoTime();
+        IRSystem irSystem;
         try {
-            irSystem = new InformationRetrievalSystem();
-            Crawler crawler = new Crawler(maxDepth, seed.toURI(), irSystem);
-            crawler.run();
+            irSystem = new IRSystem(seed, maxDepth);
         } catch (Exception e) {
-            System.out.println("Error while parsing the XML file");
+            System.err.println("Error while executing the search!");
             e.printStackTrace();
+            return;
         }
-        time = System.nanoTime() - time;
+
         System.out.println("Max Depth: " + maxDepth);
         System.out.println("Query: " + query);
         List<CrawledWebsiteResult> results = irSystem.search(query);
+        time = System.nanoTime() - time;
+
         showResults(printOnConsole, results, time);
     }
 

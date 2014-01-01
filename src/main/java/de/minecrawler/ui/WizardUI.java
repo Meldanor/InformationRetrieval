@@ -41,7 +41,7 @@ public class WizardUI extends AbstractUI {
         String query = askQuery();
 
         scanner.close();
-        startCrawler(seed, depth, printOnConsole, query);
+        startSearch(seed, depth, printOnConsole, query);
     }
 
     /**

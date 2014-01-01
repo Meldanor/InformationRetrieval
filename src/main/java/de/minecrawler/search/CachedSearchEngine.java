@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013
+ * Copyright (C) 2014
  * 
  * This file is part of InformationRetrieval.
  * 
@@ -16,25 +16,27 @@
  * along with InformationRetrieval.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.minecrawler;
+package de.minecrawler.search;
 
-import de.minecrawler.cache.CacheManager;
-import de.minecrawler.ui.ArgumentUI;
-import de.minecrawler.ui.WizardUI;
+import java.io.File;
+import java.io.IOException;
 
-public class Core {
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.NIOFSDirectory;
 
-    public static final CacheManager cacheManager = new CacheManager();
+public class CachedSearchEngine extends AbstractSearchEngine {
 
-    public static void main(String[] args) {
-        System.out.println("===============");
-        System.out.println("= MINECRAWLER =");
-        System.out.println("===============");
+    public CachedSearchEngine(File cacheFile) throws Exception {
+        super(cacheFile);
+    }
 
-        if (args.length > 0) {
-            new ArgumentUI(args);
-        } else {
-            new WizardUI();
+    @Override
+    protected Directory createDirectory(Object... args) {
+        try {
+            return new NIOFSDirectory((File) args[1]);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

@@ -20,6 +20,8 @@ package de.minecrawler;
 
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -35,27 +37,27 @@ public class Crawler {
     private int maxRecursiveDepth;
     private URI seed;
 
-    private InformationRetrievalSystem infoSystem;
-
-    public Crawler(int maxRecursiveDepth, URI seed, InformationRetrievalSystem infoSystem) {
+    public Crawler(int maxRecursiveDepth, URI seed) {
         this.maxRecursiveDepth = maxRecursiveDepth;
         this.seed = seed;
-        this.infoSystem = infoSystem;
     }
 
-    public Crawler(int maxRecursiveDepth, String seedURL, InformationRetrievalSystem infoSystem) {
-        this(maxRecursiveDepth, URI.create(seedURL), infoSystem);
+    public Crawler(int maxRecursiveDepth, String seedURL) {
+        this(maxRecursiveDepth, URI.create(seedURL));
     }
 
-    public void run() {
+    public List<CrawledWebsite> run() {
         try {
-            parseWebsite(seed.toURL(), 1);
+            List<CrawledWebsite> websites = new ArrayList<CrawledWebsite>();
+            parseWebsite(websites, seed.toURL(), 1);
+            return websites;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
-    private void parseWebsite(URL url, int depth) throws Exception {
+    private void parseWebsite(List<CrawledWebsite> websites, URL url, int depth) throws Exception {
         if (depth == maxRecursiveDepth) {
             return;
         }
@@ -64,13 +66,14 @@ public class Crawler {
 
         String title = document.title();
         String text = document.text();
+
         CrawledWebsite webSite = new CrawledWebsite(text, title, url.toURI());
-        this.infoSystem.addWebsite(webSite);
+        websites.add(webSite);
 
         Elements links = document.getElementsByAttribute("href");
         for (Element link : links) {
             String subLink = link.absUrl("href");
-            parseWebsite(new URL(subLink), depth + 1);
+            parseWebsite(websites, new URL(subLink), depth + 1);
         }
     }
 }
