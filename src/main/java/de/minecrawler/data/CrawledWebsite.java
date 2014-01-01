@@ -23,12 +23,12 @@ import java.net.URI;
 public class CrawledWebsite {
 
     private String body;
-    private String text;
+    private String title;
     private URI uri;
 
-    public CrawledWebsite(String body, String text, URI uri) {
+    public CrawledWebsite(String body, String title, URI uri) {
         this.body = body;
-        this.text = text;
+        this.title = title;
         this.uri = uri;
     }
 
@@ -40,8 +40,8 @@ public class CrawledWebsite {
         return body;
     }
 
-    public String getText() {
-        return text;
+    public String getTitle() {
+        return title;
     }
 
     public URI getURI() {

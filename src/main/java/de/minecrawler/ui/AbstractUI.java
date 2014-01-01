@@ -73,7 +73,7 @@ public abstract class AbstractUI {
         for (CrawledWebsiteResult result : results) {
             sBuilder.append("Rank: ").append(result.getRank()).append(lineSeparator);
             sBuilder.append("Score: ").append(result.getScore()).append(lineSeparator);
-            sBuilder.append("Title: ").append(result.getWebsite().getText()).append(lineSeparator);
+            sBuilder.append("Title: ").append(result.getWebsite().getTitle()).append(lineSeparator);
             sBuilder.append("Text: ").append(result.getWebsite().getBody()).append(lineSeparator);
             sBuilder.append(lineSeparator);
         }
