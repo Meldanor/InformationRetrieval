@@ -76,8 +76,6 @@ public class ArgumentUI extends AbstractUI {
         CommandLineParser parser = new PosixParser();
         // If no other file is defined, use the standard file
         URL seed = null;
-        // InputStream xmlStream =
-        // getClass().getResourceAsStream("/reut2-000.xml");
         // Shows the query output on the console
         boolean showInConsole = false;
 
