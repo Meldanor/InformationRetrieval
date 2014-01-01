@@ -18,6 +18,7 @@
 
 package de.minecrawler.search;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.store.NIOFSDirectory;
 
 import de.minecrawler.data.CrawledWebsite;
 
@@ -48,13 +49,19 @@ public class LiveSearchEngine extends AbstractSearchEngine {
 
     private IndexWriter indexWriter;
 
-    public LiveSearchEngine() throws Exception {
-        super();
+    public LiveSearchEngine(File toCacheFile) throws Exception {
+        super(toCacheFile);
     }
 
     @Override
     protected Directory createDirectory(Object... args) {
-        return new RAMDirectory();
+        try {
+            return new NIOFSDirectory((File) args[0]);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void addWebsite(CrawledWebsite website) {
@@ -73,7 +80,7 @@ public class LiveSearchEngine extends AbstractSearchEngine {
             addWebsite(website);
         }
     }
-    
+
     private void addFields(Document doc, CrawledWebsite website) {
         doc.add(new Field(FIELD_BODY, website.getBody(), TextField.TYPE_STORED));
         doc.add(new Field(FIELD_TITLE, website.getTitle(), TextField.TYPE_STORED));
