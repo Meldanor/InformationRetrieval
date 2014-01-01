@@ -28,49 +28,48 @@
 \maketitle
  
 \section{Task}
-%The main task of this project was to perform a search query on a collection of documents, which is given as a XML document. The user should be able to perform search queries on this collection.
-%Since no parsing method was specified, we chose the standart Java Library JAXB to read and write XML files. For the indexing and parsing of the collection we were required to use the Apache Lucene library.
+The main task of this project was to index websites beginning on an initial website, the seed. After indexing the website, an query is performed to retrieve the best matching websites for the query. Like we did in the first task, we have used Apache Lucene for indexing the websites, the HTML parsing is done by jsoup library.
 
 \section{Usage}
-%The Java executable is a console based program, you have to run it from the console with
-%\begin{verbatim}
-%java -jar IR13_Assigment_1.1_MineCrawler.jar
-%\end{verbatim}
-%The Java executable accepts the following arguments:
 
-%\begin{description}
-%  \item[-l NUMBER] \hfill \\
-%  The maximum size of the result list. Standard value is 10.
-%  \item[-c] \hfill \\
-%  Should the result list printed on the console instead write in a file(will be created by default)
-%  \item[-f PATH] \hfill \\
-%  The path to the xml file to parse. Standard is the given xml file (in the jar) reut2-000.xml
-%\end{description}
-%Note that the order of the arguments does not matter. In case none of these arguments are specified, the user will be prompted to enter additional parameters (i.e. number of results, search query). Those are quite self-explanatory and will therefore not be elaborated here.
+The Java executable is a console based program, you have to run it from the console with
+\begin{verbatim}
+	java -jar IR13_Assigment_2.1_MineCrawler.jar
+\end{verbatim}
+The Java executable accepts the following arguments:
+
+\begin{description}
+  \item[-u URL] \hfill \\
+  The initial website to start the crawling
+  \item[-c] \hfill \\
+  Should the result list printed on the console instead write in a file(will be created by default)
+  \item[-d NUMBER] \hfill \\
+  The maximum recursive depth of the crawling. Default is 5. 
+\end{description}
+Note that the order of the arguments does not matter. In case none of these arguments are specified, the user will be prompted to enter additional parameters (i.e. number of results, search query). Those are quite self-explanatory and will therefore not be elaborated here.
 
 \subsection{Query format}
-%The query format is defined by the used Library Apache Lucene and can be found \href{http://lucene.apache.org/core/4_6_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description}{on this website}.  \\
-%The possible search fields are 
-%\begin{itemize}
-%	\item id
-%	\item date
-%	\item title
-%	\item body
-%\end{itemize}
+The query format is defined by the used Library Apache Lucene and can be found \href{http://lucene.apache.org/core/4_6_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description}{on this website}.  \\
+The possible search fields are 
+\begin{itemize}
+	\item title
+	\item body
+\end{itemize}
 
 \section{Process of Solution}
-%The programm asks the user for the necessary information (i.e. query or the data source) via the arguments(class ArgumentInterface) or a little wizard(class WizardInterface). This information is used to creating an instance of the class InformationRetrieval. The class will parse the XML file using the JAXB Marshaller. The JAXB will map the information from the XML file to objects of the class defined in the package de.minecrawler.IR1.data, for example the class XMLDocument. This class represents a single document from the reuters collection. \\
-%After parsing the document, an index will be created using the Apache Lucene. The index contains the fields id, date, title or the body(text itself) of the document. Please note, that the index exists only in the memory and will not be saved on the hard drive! \\
-%Now the index process is finished, the query will be executed on the index. We use a MutliFieldQueryParser instead a standard parser to search on all fields at the same time. This will increase the result size and help the user to find their information.\\
-%The result list will be returned as XML formatted documents and provide a score, the match score and the complete content from the reuters collections. The process is done.
+The program asks the user for the neccessary information to execute the task via arguments from command line or via a little wizard.
+With the seed url and the deepth of the crawling the cache manager will be asked, wether he has a cache file for this or not. Using a cache with a maximum hold of an hour increases the performance dramatically, because the bottleneck of this, the crawling, is reduced to very few ones. When the user executes a query on the same seed and the same deepth, the cache will be used instead of always crawling websites, which takes a massive amount of time depening on the network and the web server.
+After crawling websites via deep first search or using cache the normal search with Lucene is done and the user gets the results.
 
 \section{Libraries}
-%The used libraries for this project are
-%
-%\begin{enumerate}
-%	\item \href{http://lucene.apache.org/}{Apache Lucene} - Creating an index and executing the query
-%	\item \href{http://www.joda.org/joda-time/}{JodaTime} - For easier date handeling(normal java implementation isn't the best...)
-%	\item \href{http://commons.apache.org/proper/commons-cli/}{Apache Commons CLI} - Easy parsing of console arguments in POSIX style
-%\end{enumerate}
+The used libraries for this project are
+
+\begin{enumerate}
+	\item \href{http://lucene.apache.org/}{Apache Lucene} - Creating an index and executing the query
+	\item \href{http://www.joda.org/joda-time/}{JodaTime} - For easier date handeling(normal java implementation isn't the best...)
+	\item \href{http://commons.apache.org/proper/commons-cli/}{Apache Commons CLI} - Easy parsing of console arguments in POSIX style
+	\item \href{http://jsoup.org/}{jsoup} - Parsing html and provide simple access for the title and the body
+
+\end{enumerate}
 
 \end{document}
