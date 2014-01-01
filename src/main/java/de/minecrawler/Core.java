@@ -18,13 +18,10 @@
 
 package de.minecrawler;
 
-import de.minecrawler.cache.CacheManager;
 import de.minecrawler.ui.ArgumentUI;
 import de.minecrawler.ui.WizardUI;
 
 public class Core {
-
-    public static final CacheManager cacheManager = new CacheManager();
 
     public static void main(String[] args) {
         System.out.println("===============");
