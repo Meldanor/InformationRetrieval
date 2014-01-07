@@ -52,7 +52,7 @@ public class Crawler {
     public List<CrawledWebsite> run() {
         try {
             List<CrawledWebsite> websites = new ArrayList<CrawledWebsite>();
-            parseWebsite(websites, seed.toURL(), 1);
+            parseWebsite(websites, seed.toURL(), 0);
             return websites;
         } catch (Exception e) {
             e.printStackTrace();
