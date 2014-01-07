@@ -138,6 +138,7 @@ public class CacheManager {
             return;
         }
         list.remove(index);
+        writeIndex();
 
     }
 
