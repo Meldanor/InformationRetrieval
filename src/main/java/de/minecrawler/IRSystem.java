@@ -53,7 +53,7 @@ public class IRSystem {
     private void useNotCachedIndex(URL seed, int deepth) throws Exception {
         System.out.println("Started crawling the websites...");
         this.searchEngine = new LiveSearchEngine(cacheManager.addURL(seed, deepth));
-        Crawler crawler = new Crawler(deepth, seed.toURI());
+        Crawler crawler = new Crawler(deepth, seed);
         List<CrawledWebsite> result = crawler.run();
         if (result == null) {
             System.err.println("Something bad happend!");

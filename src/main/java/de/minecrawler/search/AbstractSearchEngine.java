@@ -48,7 +48,7 @@ public abstract class AbstractSearchEngine {
     // Fields for the indices
     protected static final String FIELD_TITLE = "title";
     protected static final String FIELD_BODY = "body";
-    protected static final String FIELD_URI = "uri";
+    protected static final String FIELD_URL = "url";
 
     private static final String[] FIELDS = {FIELD_BODY, FIELD_TITLE};
 
@@ -114,7 +114,7 @@ public abstract class AbstractSearchEngine {
     }
 
     protected CrawledWebsite extractWebsite(Document doc) {
-        return new CrawledWebsite(doc.get(FIELD_BODY), doc.get(FIELD_TITLE), doc.get(FIELD_URI));
+        return new CrawledWebsite(doc.get(FIELD_BODY), doc.get(FIELD_TITLE), doc.get(FIELD_URL));
     }
 
 }

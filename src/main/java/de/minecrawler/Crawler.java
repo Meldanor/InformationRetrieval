@@ -19,7 +19,6 @@
 package de.minecrawler;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,21 +37,17 @@ public class Crawler {
     private static final int MAX_TIMEOUT = 2000;
 
     private int maxRecursiveDepth;
-    private URI seed;
+    private URL seed;
 
-    public Crawler(int maxRecursiveDepth, URI seed) {
+    public Crawler(int maxRecursiveDepth, URL seed) {
         this.maxRecursiveDepth = maxRecursiveDepth;
         this.seed = seed;
-    }
-
-    public Crawler(int maxRecursiveDepth, String seedURL) {
-        this(maxRecursiveDepth, URI.create(seedURL));
     }
 
     public List<CrawledWebsite> run() {
         try {
             List<CrawledWebsite> websites = new ArrayList<CrawledWebsite>();
-            parseWebsite(websites, seed.toURL(), 0);
+            parseWebsite(websites, seed, 0);
             return websites;
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +71,7 @@ public class Crawler {
         String title = document.title();
         String body = document.text();
 
-        CrawledWebsite webSite = new CrawledWebsite(body, title, url.toURI());
+        CrawledWebsite webSite = new CrawledWebsite(body, title, url);
         websites.add(webSite);
 
         Elements links = document.getElementsByAttribute("href");

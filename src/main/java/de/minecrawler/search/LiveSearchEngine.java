@@ -110,6 +110,6 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     private void addFields(Document doc, CrawledWebsite website) {
         doc.add(new Field(FIELD_BODY, website.getBody(), TextField.TYPE_STORED));
         doc.add(new Field(FIELD_TITLE, website.getTitle(), TextField.TYPE_STORED));
-        doc.add(new Field(FIELD_URI, website.getURI().toString(), TYPE_ONLY_STORED));
+        doc.add(new Field(FIELD_URL, website.getURL().toString(), TYPE_ONLY_STORED));
     }
 }

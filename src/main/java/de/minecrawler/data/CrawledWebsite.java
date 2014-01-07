@@ -18,22 +18,29 @@
 
 package de.minecrawler.data;
 
-import java.net.URI;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class CrawledWebsite {
 
     private String body;
     private String title;
-    private URI uri;
+    private URL url;
 
-    public CrawledWebsite(String body, String title, URI uri) {
+    public CrawledWebsite(String body, String title, URL url) {
         this.body = body;
         this.title = title;
-        this.uri = uri;
+        this.url = url;
     }
 
-    public CrawledWebsite(String body, String text, String uri) {
-        this(body, text, URI.create(uri));
+    public CrawledWebsite(String body, String title, String url) {
+        this.body = body;
+        this.title = title;
+        try {
+            this.url = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getBody() {
@@ -44,7 +51,7 @@ public class CrawledWebsite {
         return title;
     }
 
-    public URI getURI() {
-        return uri;
+    public URL getURL() {
+        return url;
     }
 }
