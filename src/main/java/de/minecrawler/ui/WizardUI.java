@@ -77,6 +77,11 @@ public class WizardUI extends AbstractUI {
         return answer.equalsIgnoreCase("Y");
     }
 
+    /**
+     * Ask the user how many results are maximal returned
+     * 
+     * @return Result limit
+     */
     private int askResultLimit() {
         System.out.println("Max number of results to print(Enter nothing for default 10 results)");
         String limitString = scanner.nextLine();
@@ -118,6 +123,13 @@ public class WizardUI extends AbstractUI {
         return query;
     }
 
+    /**
+     * Asks the user to ignore possible cache and always start the website
+     * crawler or use the cache if this is possible.
+     * 
+     * @return <code>true</code> If, and only if, the user answers with Y.
+     *         Otherwise <code>false</code>
+     */
     private boolean askEnforceCrawling() {
         System.out.println("Force website crawling and ignoring possible cache (Y) or use cache if possible (N)?");
         String answer = scanner.nextLine();

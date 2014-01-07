@@ -35,7 +35,7 @@ import de.minecrawler.data.CrawledWebsite;
 import de.minecrawler.data.CrawledWebsiteResult;
 
 /**
- * Class handling the parsing of the xml document and providing a search method.
+ * Search engine provide methodes to add documents to the index.
  */
 public class LiveSearchEngine extends AbstractSearchEngine {
 
@@ -51,6 +51,14 @@ public class LiveSearchEngine extends AbstractSearchEngine {
 
     private IndexWriter indexWriter;
 
+    /**
+     * Creates an search engine with a file to write the index to
+     * 
+     * @param toCacheFile
+     *            Empty file, will contain after the indexing the index itself.
+     *            Used later by {@link CachedSearchEngine}
+     * @throws Exception
+     */
     public LiveSearchEngine(File toCacheFile) throws Exception {
         super(toCacheFile);
         this.indexWriter = new IndexWriter(this.dir, new IndexWriterConfig(LUCENE_VERSION, ANALYZER));
@@ -66,6 +74,13 @@ public class LiveSearchEngine extends AbstractSearchEngine {
         }
     }
 
+    /**
+     * Add a single crawled website to the index. All attributes are index(not
+     * the url)
+     * 
+     * @param website
+     *            The crawled website
+     */
     public void addWebsite(CrawledWebsite website) {
         Document document = new Document();
 
@@ -77,6 +92,13 @@ public class LiveSearchEngine extends AbstractSearchEngine {
         }
     }
 
+    /**
+     * Add a collection of websites to the index. See
+     * {@link #addWebsite(CrawledWebsite)}
+     * 
+     * @param websites
+     *            The crawled websites
+     */
     public void addWebsites(List<CrawledWebsite> websites) {
         for (CrawledWebsite website : websites) {
             addWebsite(website);
@@ -84,6 +106,11 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     }
 
     @Override
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.minecrawler.search.AbstractSearchEngine#search(java.lang.String)
+     */
     public List<CrawledWebsiteResult> search(String queryString) {
         // Close index writer before the search starts
         try {
@@ -96,6 +123,12 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     }
 
     @Override
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.minecrawler.search.AbstractSearchEngine#search(java.lang.String,
+     * int)
+     */
     public List<CrawledWebsiteResult> search(String queryString, int limit) {
         // Close index writer before the search starts
         try {
@@ -107,6 +140,14 @@ public class LiveSearchEngine extends AbstractSearchEngine {
         return super.search(queryString, limit);
     }
 
+    /**
+     * Add the website attributes to the documents fields
+     * 
+     * @param doc
+     *            The document for the index
+     * @param website
+     *            The crawled website attributes are used from
+     */
     private void addFields(Document doc, CrawledWebsite website) {
         doc.add(new Field(FIELD_BODY, website.getBody(), TextField.TYPE_STORED));
         doc.add(new Field(FIELD_TITLE, website.getTitle(), TextField.TYPE_STORED));

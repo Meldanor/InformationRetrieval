@@ -18,26 +18,47 @@
 
 package de.minecrawler.data;
 
+/**
+ * Wrapper class to contain the result information (score and rank) of the
+ * search and its corresponding website
+ */
 public class CrawledWebsiteResult {
 
     private CrawledWebsite website;
     private int rank;
     private float score;
 
+    /**
+     * @param website
+     *            The crawled website having the rank and the score
+     * @param rank
+     *            Rank of the search (lower is better)
+     * @param score
+     *            Score of the search (higher score is a better rank)
+     */
     public CrawledWebsiteResult(CrawledWebsite website, int rank, float score) {
         this.website = website;
         this.rank = rank;
         this.score = score;
     }
 
+    /**
+     * @return Rank of the search (lower is better)
+     */
     public int getRank() {
         return rank;
     }
 
+    /**
+     * @return Rank of the search (lower is better)
+     */
     public float getScore() {
         return score;
     }
 
+    /**
+     * @return The crawled website having the rank and the score
+     */
     public CrawledWebsite getWebsite() {
         return website;
     }

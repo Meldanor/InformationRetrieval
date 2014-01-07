@@ -21,18 +21,41 @@ package de.minecrawler.data;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import de.minecrawler.Crawler;
+
+/**
+ * Container class containing information about a crawled website from the
+ * {@link Crawler}
+ */
 public class CrawledWebsite {
 
     private String body;
     private String title;
     private URL url;
 
+    /**
+     * @param body
+     *            The readable text of the website
+     * @param title
+     *            The title of the website
+     * @param url
+     *            The URL to the website
+     */
     public CrawledWebsite(String body, String title, URL url) {
         this.body = body;
         this.title = title;
         this.url = url;
     }
 
+    /**
+     * @param body
+     *            The readable text of the website
+     * @param title
+     *            The title of the website
+     * @param url
+     *            String encoded URL to the website. Must be well formed
+     *            otherwise an error occures!
+     */
     public CrawledWebsite(String body, String title, String url) {
         this.body = body;
         this.title = title;
@@ -43,14 +66,23 @@ public class CrawledWebsite {
         }
     }
 
+    /**
+     * @return The readable text of the website
+     */
     public String getBody() {
         return body;
     }
 
+    /**
+     * @return The title of the website
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @return The URL to the website
+     */
     public URL getURL() {
         return url;
     }

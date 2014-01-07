@@ -28,12 +28,35 @@ import java.util.concurrent.TimeUnit;
 import de.minecrawler.IRSystem;
 import de.minecrawler.data.CrawledWebsiteResult;
 
+/**
+ * General class to provide several methods for searching using retrieved
+ * parameters
+ */
 public abstract class AbstractUI {
 
     protected AbstractUI() {
 
     }
 
+    /**
+     * Use an {@link IRSystem} to run a search
+     * 
+     * @param seed
+     *            The initial url seed
+     * @param maxDepth
+     *            The maximum crawl depth
+     * @param printOnConsole
+     *            Shall the result printed on the console or to a new created
+     *            file
+     * @param resultLimit
+     *            How many results shall printed
+     * @param forceCrawling
+     *            Enforce a crawl(ignoring cache)
+     * @param query
+     *            * The query itself, see <a href=
+     *            "http://lucene.apache.org/core/4_1_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html"
+     *            >Query Format</a>
+     */
     protected void startSearch(URL seed, int maxDepth, boolean printOnConsole, int resultLimit, boolean forceCrawling, String query) {
         long time = System.nanoTime();
         IRSystem irSystem;
@@ -68,7 +91,7 @@ public abstract class AbstractUI {
      */
     private void showResults(boolean showInConsole, List<CrawledWebsiteResult> results, long time) {
         System.out.println("Results: " + results.size());
-        printTime(time);
+        System.out.println(printTime(time));
         System.out.println();
 
         String lineSeparator = System.getProperty("line.separator");
@@ -90,7 +113,14 @@ public abstract class AbstractUI {
         }
     }
 
-    private void printTime(long time) {
+    /**
+     * Format the execution time to a readable format with seconds, milliseconds
+     * and microseconds
+     * 
+     * @param time
+     *            The execution time
+     */
+    private String printTime(long time) {
         long seconds = TimeUnit.NANOSECONDS.toSeconds(time);
         time = time - TimeUnit.SECONDS.toNanos(seconds);
 
@@ -100,9 +130,16 @@ public abstract class AbstractUI {
         long micros = TimeUnit.NANOSECONDS.toMicros(time);
         time = time - TimeUnit.MICROSECONDS.toNanos(micros);
 
-        System.out.println("Query executed in " + seconds + "s " + millis + "ms " + micros + "micro");
+        return "Query executed in " + seconds + "s " + millis + "ms " + micros + "micro";
     }
 
+    /**
+     * Write the formatted result textto a file
+     * 
+     * @param text
+     *            Formatted result
+     * @return The file name
+     */
     private String writeToFile(String text) {
         try {
             File f = createResultFile();

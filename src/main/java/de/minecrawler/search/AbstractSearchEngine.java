@@ -39,6 +39,10 @@ import org.apache.lucene.util.Version;
 import de.minecrawler.data.CrawledWebsite;
 import de.minecrawler.data.CrawledWebsiteResult;
 
+/**
+ * General class for search engine providig a Lucene based search on a
+ * directory. The implementation define the directory for the index
+ */
 public abstract class AbstractSearchEngine {
 
     public AbstractSearchEngine(Object... args) throws Exception {
@@ -57,6 +61,13 @@ public abstract class AbstractSearchEngine {
 
     protected Directory dir;
 
+    /**
+     * Creates a directory for the index
+     * 
+     * @param args
+     *            Possible arguments to pass by
+     * @return A directory for the index
+     */
     protected abstract Directory createDirectory(Object... args);
 
     /**
@@ -113,6 +124,13 @@ public abstract class AbstractSearchEngine {
         }
     }
 
+    /**
+     * Create a wrapper from the document
+     * 
+     * @param doc
+     *            The document containing the information
+     * @return Container class
+     */
     protected CrawledWebsite extractWebsite(Document doc) {
         return new CrawledWebsite(doc.get(FIELD_BODY), doc.get(FIELD_TITLE), doc.get(FIELD_URL));
     }

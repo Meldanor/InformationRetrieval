@@ -32,18 +32,37 @@ import org.jsoup.select.Elements;
 
 import de.minecrawler.data.CrawledWebsite;
 
+/**
+ * Website crawler based on Jsoup. Use deep first search recursion strategy for
+ * crawling.
+ */
 public class Crawler {
 
     private static final int MAX_TIMEOUT = 2000;
 
-    private int maxRecursiveDepth;
+    private int maxSearchDepth;
     private URL seed;
 
-    public Crawler(int maxRecursiveDepth, URL seed) {
-        this.maxRecursiveDepth = maxRecursiveDepth;
+    /**
+     * Creates an website crawler with an initial url to crawl and the
+     * limitation for crawling.
+     * 
+     * @param maxSearchDepth
+     *            The maximum search depth the crawler goes before terminiating
+     * @param seed
+     *            The initial url the crawler begins at
+     */
+    public Crawler(int maxSearchDepth, URL seed) {
+        this.maxSearchDepth = maxSearchDepth;
         this.seed = seed;
     }
 
+    /**
+     * Start the crawler
+     * 
+     * @return List containing crawled websites retrieved from the seed url.
+     *         <code>Null</code> if, and only if, an error occured!
+     */
     public List<CrawledWebsite> run() {
         try {
             List<CrawledWebsite> websites = new ArrayList<CrawledWebsite>();
@@ -55,8 +74,21 @@ public class Crawler {
         }
     }
 
+    /**
+     * The deep first search of the website. Terminates when the maxSearchDepth
+     * is reached
+     * 
+     * @param websites
+     *            List of current crawled websites
+     * @param url
+     *            The current url to scan
+     * @param depth
+     *            The current depth of crawling
+     * @throws Exception
+     *             An error occurred
+     */
     private void parseWebsite(List<CrawledWebsite> websites, URL url, int depth) throws Exception {
-        if (depth == maxRecursiveDepth) {
+        if (depth == maxSearchDepth) {
             return;
         }
         Document document;

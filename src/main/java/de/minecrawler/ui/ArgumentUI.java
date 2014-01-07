@@ -30,9 +30,6 @@ import org.apache.commons.cli.PosixParser;
 
 /**
  * Handler for using console arguments to start the information retrieval.
- * 
- * @author Meldanor
- * 
  */
 public class ArgumentUI extends AbstractUI {
 
@@ -75,10 +72,16 @@ public class ArgumentUI extends AbstractUI {
         return options;
     }
 
+    /**
+     * Read all arguments from the command and start a search using them
+     * 
+     * @param args
+     *            Arguments from the command line
+     */
     private void handleArguments(String[] args) {
         // Create Possix compatible arguments parser
         CommandLineParser parser = new PosixParser();
-        // If no other file is defined, use the standard file
+        // The initial seed to start the crawler
         URL seed = null;
         // Shows the query output on the console
         boolean showInConsole = false;

@@ -24,8 +24,20 @@ import java.io.IOException;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 
+/**
+ * Read only search engine based on a already indexed directory. Can't modify
+ * the cache.
+ */
 public class CachedSearchEngine extends AbstractSearchEngine {
 
+    /**
+     * Creates a cached base search engine
+     * 
+     * @param cacheFile
+     *            The file to the cache
+     * @throws Exception
+     *             Error while loading the directory
+     */
     public CachedSearchEngine(File cacheFile) throws Exception {
         super(cacheFile);
     }

@@ -33,22 +33,33 @@ import java.util.Map.Entry;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
+/**
+ * Manage cache for crawled and indexed websites to provide an easier interface
+ * for this. A cached search is always faster then a crawled base search!
+ */
 public class CacheManager {
 
     private static final String CACHE_INDEX_FILENAME = "cacheIndex.txt";
     private static final String CACHE_FILE_ENDING = "cache";
 
-    private Map<URL, List<CachedIndex>> urlIndex;
+    private Map<URL, List<CacheIndex>> urlIndex;
     private int currentIndex = 0;
     private File cacheDir;
 
+    /**
+     * Creates a CacheManager and load the cache index
+     */
     public CacheManager() {
-        this.urlIndex = new HashMap<URL, List<CachedIndex>>();
+        this.urlIndex = new HashMap<URL, List<CacheIndex>>();
         this.cacheDir = new File("cache");
         cacheDir.mkdir();
         loadIndex();
     }
 
+    /**
+     * Parse the cache index and load all neccessary information from the cache
+     * to the map
+     */
     private void loadIndex() {
         try {
             File cacheIndexFile = new File(CACHE_INDEX_FILENAME);
@@ -71,13 +82,13 @@ public class CacheManager {
                 DateTime date = DateTime.parse(split[pos++]);
                 int fileNumber = Integer.valueOf(split[pos++]);
 
-                List<CachedIndex> list = urlIndex.get(url);
+                List<CacheIndex> list = urlIndex.get(url);
                 if (list == null) {
-                    list = new ArrayList<CachedIndex>();
+                    list = new ArrayList<CacheIndex>();
                     urlIndex.put(url, list);
                 }
 
-                list.add(new CachedIndex(fileNumber, depth, date, url));
+                list.add(new CacheIndex(fileNumber, depth, date, url));
 
                 if (fileNumber > maxIndex)
                     maxIndex = fileNumber;
@@ -90,22 +101,44 @@ public class CacheManager {
         }
     }
 
+    /**
+     * Provicde a File to save the cache for the url and its depth. Same urls
+     * with different depth have different caches!
+     * 
+     * @param url
+     *            The seed of the crawling
+     * @param depth
+     *            The depth of the crawling
+     * @return A file to save the cache
+     */
     public File addURL(URL url, int depth) {
-        List<CachedIndex> list = urlIndex.get(url);
+        List<CacheIndex> list = urlIndex.get(url);
         if (list == null) {
-            list = new ArrayList<CachedIndex>();
+            list = new ArrayList<CacheIndex>();
             urlIndex.put(url, list);
         }
-        CachedIndex index = new CachedIndex(++currentIndex, depth, new DateTime(), url);
+        CacheIndex index = new CacheIndex(++currentIndex, depth, new DateTime(), url);
 
         list.add(index);
 
         writeIndex();
-        return getFile(index);
+        return index.getFile();
     }
 
+    /**
+     * Retrieve the file to the cache. Same urls with different depth have
+     * different caches!
+     * 
+     * @param url
+     *            The seed of the crawling
+     * @param depth
+     *            The depth of the crawling
+     * @return <code>Null</code> when no cache was found or the cache is
+     *         expired(then it will be also deleted!). Otherwise the file to
+     *         cache
+     */
     public File getCache(URL url, int depth) {
-        CachedIndex index = getCachedIndex(url, depth);
+        CacheIndex index = getCacheIndex(url, depth);
         if (index == null)
             return null;
 
@@ -113,39 +146,63 @@ public class CacheManager {
             removeCache(index);
             return null;
         } else
-            return getFile(index);
+            return index.getFile();
     }
 
-    private File getFile(CachedIndex index) {
-        return new File(cacheDir, index.fileNumber + "." + CACHE_FILE_ENDING);
-    }
-
-    private CachedIndex getCachedIndex(URL url, int depth) {
-        List<CachedIndex> list = urlIndex.get(url);
+    /**
+     * Search for the cache index
+     * 
+     * @param url
+     *            The url
+     * @param depth
+     *            The depth of crawling
+     * @return <code>null</code> if no cache was found for the url and its
+     *         depth. Otherwise the CacheIndex
+     */
+    private CacheIndex getCacheIndex(URL url, int depth) {
+        List<CacheIndex> list = urlIndex.get(url);
         if (list == null)
             return null;
 
-        for (CachedIndex cachedIndex : list) {
+        for (CacheIndex cachedIndex : list) {
             if (cachedIndex.depth == depth)
                 return cachedIndex;
         }
         return null;
     }
 
+    /**
+     * Remove the cache
+     * 
+     * @param url
+     *            The url
+     * @param depth
+     *            The depth of crawling
+     * @return <code>true</code> when the cache exists and was successfully
+     *         removed, otherwise <code>false</code>
+     */
     public boolean removeCache(URL url, int depth) {
-        CachedIndex index = getCachedIndex(url, depth);
+        CacheIndex index = getCacheIndex(url, depth);
         if (index == null)
             return false;
         else
             return removeCache(index);
     }
 
-    private boolean removeCache(CachedIndex index) {
-        List<CachedIndex> list = urlIndex.get(index.url);
+    /**
+     * Remove and deletes the cache from the cacheManager and the filesystem
+     * 
+     * @param index
+     *            The index to remove
+     * @return <code>true</code> when the index was found, otherwhise
+     *         <code>false</code>
+     */
+    private boolean removeCache(CacheIndex index) {
+        List<CacheIndex> list = urlIndex.get(index.url);
         if (list == null) {
             return false;
         }
-        File file = getFile(index);
+        File file = index.getFile();
         deleteDir(file);
         list.remove(index);
 
@@ -154,6 +211,12 @@ public class CacheManager {
         return true;
     }
 
+    /**
+     * Helper function to delete a complete directory
+     * 
+     * @param dir
+     *            Directory to clear and delete
+     */
     private void deleteDir(File dir) {
         File[] listFiles = dir.listFiles();
         for (int i = 0; i < listFiles.length; ++i) {
@@ -168,19 +231,28 @@ public class CacheManager {
 
     private static final long EXPIRE_HOUR = 1L;
 
-    private boolean isExpired(CachedIndex index) {
+    /**
+     * @param index
+     *            Index to check
+     * @return <code>true</code> when the cache is expired, otherwhise
+     *         <code>false</code>
+     */
+    private boolean isExpired(CacheIndex index) {
 
         Duration dur = new Duration(index.creationDate, null);
         return dur.getStandardHours() >= EXPIRE_HOUR;
     }
 
+    /**
+     * Write the complete cache index to the cacheindex file
+     */
     private void writeIndex() {
         try {
             File cacheIndexFile = new File(CACHE_INDEX_FILENAME);
 
             BufferedWriter bWriter = new BufferedWriter(new FileWriter(cacheIndexFile));
-            for (Entry<URL, List<CachedIndex>> entry : urlIndex.entrySet()) {
-                for (CachedIndex index : entry.getValue()) {
+            for (Entry<URL, List<CacheIndex>> entry : urlIndex.entrySet()) {
+                for (CacheIndex index : entry.getValue()) {
                     bWriter.append(index.url.toString()).append(' ');
                     bWriter.append(Integer.toString(index.depth)).append(' ');
                     bWriter.append(index.creationDate.toString()).append(' ');
@@ -194,18 +266,26 @@ public class CacheManager {
         }
     }
 
-    private class CachedIndex {
+    /**
+     * Container class for a single cache index. Containg the filenumber, the
+     * creationdate and the url and depth of the crawled cache.
+     */
+    private class CacheIndex {
 
         int fileNumber;
         int depth;
         DateTime creationDate;
         URL url;
 
-        public CachedIndex(int fileNumber, int depth, DateTime creationDate, URL url) {
+        public CacheIndex(int fileNumber, int depth, DateTime creationDate, URL url) {
             this.fileNumber = fileNumber;
             this.depth = depth;
             this.creationDate = creationDate;
             this.url = url;
+        }
+
+        private File getFile() {
+            return new File(cacheDir, fileNumber + "." + CACHE_FILE_ENDING);
         }
 
     }
