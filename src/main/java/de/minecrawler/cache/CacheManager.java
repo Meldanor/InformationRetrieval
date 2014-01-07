@@ -132,14 +132,38 @@ public class CacheManager {
         return null;
     }
 
-    private void removeCache(CachedIndex index) {
+    public boolean removeCache(URL url, int depth) {
+        CachedIndex index = getCachedIndex(url, depth);
+        if (index == null)
+            return false;
+        else
+            return removeCache(index);
+    }
+
+    private boolean removeCache(CachedIndex index) {
         List<CachedIndex> list = urlIndex.get(index.url);
         if (list == null) {
-            return;
+            return false;
         }
+        File file = getFile(index);
+        deleteDir(file);
         list.remove(index);
+
         writeIndex();
 
+        return true;
+    }
+
+    private void deleteDir(File dir) {
+        File[] listFiles = dir.listFiles();
+        for (int i = 0; i < listFiles.length; ++i) {
+            File file = listFiles[i];
+            if (file.isDirectory())
+                deleteDir(file);
+            else
+                file.delete();
+        }
+        dir.delete();
     }
 
     private static final long EXPIRE_HOUR = 1L;

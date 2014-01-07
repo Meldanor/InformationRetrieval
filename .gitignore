@@ -2,5 +2,6 @@ target/
 bin/
 dependency-reduced-pom.xml
 result*.txt
-cache/
+cache/*
+!src/main/java/de/minecrawler/cache/
 cacheIndex.txt
