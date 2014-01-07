@@ -44,7 +44,11 @@ The Java executable accepts the following arguments:
   \item[-c] \hfill \\
   Should the result list printed on the console instead write in a file(will be created by default)
   \item[-d NUMBER] \hfill \\
-  The maximum recursive depth of the crawling. Default is 5. 
+  The maximum recursive depth of the crawling. Default is 5.
+  \item[-l NUMBER] \hfill \\
+  The maxmimum amount of results to print. Default is 10.
+  \item[-f] \hfill \\
+  Enforce a website crawling, ignoring possible cached index. Default is false(using the cache)
 \end{description}
 Note that the order of the arguments does not matter. In case none of these arguments are specified, the user will be prompted to enter additional parameters (i.e. number of results, search query). Those are quite self-explanatory and will therefore not be elaborated here.
 
