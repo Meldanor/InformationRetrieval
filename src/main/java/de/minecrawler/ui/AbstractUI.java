@@ -45,8 +45,11 @@ public abstract class AbstractUI {
             return;
         }
 
+        System.out.println();
         System.out.println("Max Depth: " + maxDepth);
         System.out.println("Query: " + query);
+        System.out.println();
+
         List<CrawledWebsiteResult> results = irSystem.search(query);
         time = System.nanoTime() - time;
 
@@ -67,6 +70,7 @@ public abstract class AbstractUI {
     private void showResults(boolean showInConsole, List<CrawledWebsiteResult> results, long time) {
         System.out.println("Results: " + results.size());
         printTime(time);
+        System.out.println();
 
         String lineSeparator = System.getProperty("line.separator");
         StringBuilder sBuilder = new StringBuilder();

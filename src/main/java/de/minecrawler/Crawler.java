@@ -76,9 +76,6 @@ public class Crawler {
         String title = document.title();
         String body = document.text();
 
-//        System.out.println(title);
-//        System.out.println(text);
-//        System.out.println();
         CrawledWebsite webSite = new CrawledWebsite(body, title, url.toURI());
         websites.add(webSite);
 
