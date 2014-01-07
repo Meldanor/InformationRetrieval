@@ -77,6 +77,10 @@ public class IRSystem {
     }
 
     public List<CrawledWebsiteResult> search(String query) {
-        return searchEngine.search(query);
+        return search(query, 10);
+    }
+
+    public List<CrawledWebsiteResult> search(String query, int resultLimit) {
+        return searchEngine.search(query, resultLimit);
     }
 }

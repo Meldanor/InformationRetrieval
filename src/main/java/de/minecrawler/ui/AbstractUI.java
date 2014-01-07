@@ -34,7 +34,7 @@ public abstract class AbstractUI {
 
     }
 
-    protected void startSearch(URL seed, int maxDepth, boolean printOnConsole, boolean forceCrawling, String query) {
+    protected void startSearch(URL seed, int maxDepth, boolean printOnConsole, int resultLimit, boolean forceCrawling, String query) {
         long time = System.nanoTime();
         IRSystem irSystem;
         try {
@@ -49,7 +49,7 @@ public abstract class AbstractUI {
         System.out.println("Query: " + query);
         System.out.println();
 
-        List<CrawledWebsiteResult> results = irSystem.search(query);
+        List<CrawledWebsiteResult> results = irSystem.search(query, resultLimit);
         time = System.nanoTime() - time;
 
         showResults(printOnConsole, results, time);

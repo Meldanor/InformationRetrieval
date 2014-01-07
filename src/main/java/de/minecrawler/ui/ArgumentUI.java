@@ -66,6 +66,8 @@ public class ArgumentUI extends AbstractUI {
         // console instead of creating a result file.
         options.addOption("c", "console", false, "Query output is in the console");
 
+        options.addOption("l", "limit", true, "Number of max results");
+
         options.addOption("d", "depth", true, "Max recursivce deepth to crawl");
 
         options.addOption("f", "forceCrawling", false, "Enforce website crawling and ignore using cache");
@@ -81,6 +83,8 @@ public class ArgumentUI extends AbstractUI {
         // Shows the query output on the console
         boolean showInConsole = false;
 
+        int resultLimit = 10;
+
         boolean forceCrawling = false;
 
         int depth = 5;
@@ -94,6 +98,15 @@ public class ArgumentUI extends AbstractUI {
 
             seed = new URL(line.getOptionValue("url"));
             System.out.println("SeedUrL = " + seed);
+
+            if (line.hasOption("limit")) {
+                String tmp = line.getOptionValue("limit");
+                try {
+                    resultLimit = Integer.parseInt(tmp);
+                } catch (Exception e) {
+                    System.out.println(tmp + " is not a number!");
+                }
+            }
 
             if (line.hasOption("depth")) {
                 String tmp = line.getOptionValue("depth");
@@ -113,7 +126,7 @@ public class ArgumentUI extends AbstractUI {
             args = line.getArgs();
             String query = buildQuery(args);
 
-            startSearch(seed, depth, showInConsole, forceCrawling, query);
+            startSearch(seed, depth, showInConsole, resultLimit, forceCrawling, query);
         } catch (ParseException e) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("", options);

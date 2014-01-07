@@ -38,11 +38,12 @@ public class WizardUI extends AbstractUI {
         URL seed = askSeed();
         int depth = askDepth();
         boolean printOnConsole = askConsole();
+        int resultLimit = askResultLimit();
         boolean forceCrawling = askEnforceCrawling();
         String query = askQuery();
 
         scanner.close();
-        startSearch(seed, depth, printOnConsole, forceCrawling, query);
+        startSearch(seed, depth, printOnConsole, resultLimit, forceCrawling, query);
     }
 
     /**
@@ -74,6 +75,19 @@ public class WizardUI extends AbstractUI {
         System.out.println("Shall the results printed on the console (Y) or written to a file (N)?");
         String answer = scanner.nextLine();
         return answer.equalsIgnoreCase("Y");
+    }
+
+    private int askResultLimit() {
+        System.out.println("Max number of results to print(Enter nothing for default 10 results)");
+        String limitString = scanner.nextLine();
+        if (limitString == null || limitString.isEmpty())
+            return 10;
+        try {
+            return Integer.parseInt(limitString);
+        } catch (Exception e) {
+            System.out.println("Not a number - use 10 as limit");
+            return 10;
+        }
     }
 
     /**
