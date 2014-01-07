@@ -59,7 +59,6 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     @Override
     protected Directory createDirectory(Object... args) {
         try {
-//            return new RAMDirectory();
             return new NIOFSDirectory((File) args[0]);
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,6 +85,7 @@ public class LiveSearchEngine extends AbstractSearchEngine {
 
     @Override
     public List<CrawledWebsiteResult> search(String queryString) {
+        // Close index writer before the search starts
         try {
             indexWriter.close();
         } catch (IOException e) {
@@ -97,6 +97,7 @@ public class LiveSearchEngine extends AbstractSearchEngine {
 
     @Override
     public List<CrawledWebsiteResult> search(String queryString, int limit) {
+        // Close index writer before the search starts
         try {
             indexWriter.close();
         } catch (IOException e) {

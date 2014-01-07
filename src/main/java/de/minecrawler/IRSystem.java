@@ -51,20 +51,25 @@ public class IRSystem {
         this.searchEngine = new LiveSearchEngine(cacheManager.addURL(seed, deepth));
         Crawler crawler = new Crawler(deepth, seed.toURI());
         List<CrawledWebsite> result = crawler.run();
-        System.out.println("Finished crawling!");
         if (result == null) {
             System.err.println("Something bad happend!");
             return;
         }
-        System.out.println("Start indexing...");
+        System.out.println("Sites crawled: " + result.size());
+        System.out.println("Finished crawling!");
+        System.out.println();
+
+        System.out.println("Start indexing  and creating cache...");
         ((LiveSearchEngine) searchEngine).addWebsites(result);
         System.out.println("Finished indexing!");
+        System.out.println();
     }
 
     private void useCachedIndex(File cacheFile) throws Exception {
         System.out.println("Loading cache...");
         this.searchEngine = new CachedSearchEngine(cacheFile);
         System.out.println("Finished loading!");
+        System.out.println();
     }
 
     public List<CrawledWebsiteResult> search(String query) {

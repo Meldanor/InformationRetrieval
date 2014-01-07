@@ -45,7 +45,6 @@ public abstract class AbstractUI {
             return;
         }
 
-        System.out.println();
         System.out.println("Max Depth: " + maxDepth);
         System.out.println("Query: " + query);
         System.out.println();
@@ -84,7 +83,7 @@ public abstract class AbstractUI {
         }
 
         if (showInConsole) {
-            System.out.println(sBuilder.toString());
+            System.out.print(sBuilder.toString());
         } else {
             String fileName = writeToFile(lineSeparator);
             System.out.println("Resuls were written to " + fileName);
