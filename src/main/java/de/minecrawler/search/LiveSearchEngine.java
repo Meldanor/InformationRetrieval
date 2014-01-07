@@ -27,10 +27,12 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 
 import de.minecrawler.data.CrawledWebsite;
+import de.minecrawler.data.CrawledWebsiteResult;
 
 /**
  * Class handling the parsing of the xml document and providing a search method.
@@ -51,14 +53,15 @@ public class LiveSearchEngine extends AbstractSearchEngine {
 
     public LiveSearchEngine(File toCacheFile) throws Exception {
         super(toCacheFile);
+        this.indexWriter = new IndexWriter(this.dir, new IndexWriterConfig(LUCENE_VERSION, ANALYZER));
     }
 
     @Override
     protected Directory createDirectory(Object... args) {
         try {
+//            return new RAMDirectory();
             return new NIOFSDirectory((File) args[0]);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -79,6 +82,28 @@ public class LiveSearchEngine extends AbstractSearchEngine {
         for (CrawledWebsite website : websites) {
             addWebsite(website);
         }
+    }
+
+    @Override
+    public List<CrawledWebsiteResult> search(String queryString) {
+        try {
+            indexWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return super.search(queryString);
+    }
+
+    @Override
+    public List<CrawledWebsiteResult> search(String queryString, int limit) {
+        try {
+            indexWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return super.search(queryString, limit);
     }
 
     private void addFields(Document doc, CrawledWebsite website) {

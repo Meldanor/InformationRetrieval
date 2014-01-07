@@ -33,7 +33,7 @@ public class CachedSearchEngine extends AbstractSearchEngine {
     @Override
     protected Directory createDirectory(Object... args) {
         try {
-            return new NIOFSDirectory((File) args[1]);
+            return new NIOFSDirectory((File) args[0]);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

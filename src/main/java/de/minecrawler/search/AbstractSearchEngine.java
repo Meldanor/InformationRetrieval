@@ -42,7 +42,7 @@ import de.minecrawler.data.CrawledWebsiteResult;
 public abstract class AbstractSearchEngine {
 
     public AbstractSearchEngine(Object... args) throws Exception {
-        this.dir = createDirectory();
+        this.dir = createDirectory(args);
     }
 
     // Fields for the indices

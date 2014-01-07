@@ -122,6 +122,9 @@ public class CacheManager {
 
     private CachedIndex getCachedIndex(URL url, int depth) {
         List<CachedIndex> list = urlIndex.get(url);
+        if (list == null)
+            return null;
+
         for (CachedIndex cachedIndex : list) {
             if (cachedIndex.depth == depth)
                 return cachedIndex;

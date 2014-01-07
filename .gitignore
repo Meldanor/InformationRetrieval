@@ -2,3 +2,5 @@ target/
 bin/
 dependency-reduced-pom.xml
 result*.xml
+cache/
+cacheIndex.txt

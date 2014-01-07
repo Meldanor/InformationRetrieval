@@ -18,12 +18,15 @@
 
 package de.minecrawler;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
+import org.jsoup.UnsupportedMimeTypeException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -61,19 +64,34 @@ public class Crawler {
         if (depth == maxRecursiveDepth) {
             return;
         }
-
-        Document document = Jsoup.parse(url, MAX_TIMEOUT);
+        Document document;
+        try {
+            document = Jsoup.parse(url, MAX_TIMEOUT);
+        } catch (UnsupportedMimeTypeException e) {
+            return;
+        } catch (HttpStatusException e) {
+            return;
+        }
 
         String title = document.title();
-        String text = document.text();
+        String body = document.text();
 
-        CrawledWebsite webSite = new CrawledWebsite(text, title, url.toURI());
+//        System.out.println(title);
+//        System.out.println(text);
+//        System.out.println();
+        CrawledWebsite webSite = new CrawledWebsite(body, title, url.toURI());
         websites.add(webSite);
 
         Elements links = document.getElementsByAttribute("href");
         for (Element link : links) {
             String subLink = link.absUrl("href");
-            parseWebsite(websites, new URL(subLink), depth + 1);
+            URL newUrl;
+            try {
+                newUrl = new URL(subLink);
+            } catch (MalformedURLException e) {
+                return;
+            }
+            parseWebsite(websites, newUrl, depth + 1);
         }
     }
 }

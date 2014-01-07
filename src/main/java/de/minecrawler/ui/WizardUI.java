@@ -82,7 +82,7 @@ public class WizardUI extends AbstractUI {
      * @return Recursion depth of crawling, 5 by default
      */
     private int askDepth() {
-        System.out.println("Max depth of websites to crawl(Enter nothing for default 10 results)");
+        System.out.println("Max depth of websites to crawl(Enter nothing for default 5)");
         String limitString = scanner.nextLine();
         if (limitString == null || limitString.isEmpty())
             return 5;
