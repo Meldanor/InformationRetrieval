@@ -85,7 +85,7 @@ public abstract class AbstractUI {
         if (showInConsole) {
             System.out.print(sBuilder.toString());
         } else {
-            String fileName = writeToFile(lineSeparator);
+            String fileName = writeToFile(sBuilder.toString());
             System.out.println("Resuls were written to " + fileName);
         }
     }
@@ -122,7 +122,7 @@ public abstract class AbstractUI {
      */
     private File createResultFile() {
         for (int i = 0;; ++i) {
-            File f = new File("result" + i + ".xml");
+            File f = new File("result" + i + ".txt");
             if (!f.exists())
                 return f;
         }

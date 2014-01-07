@@ -1,6 +1,6 @@
 target/
 bin/
 dependency-reduced-pom.xml
-result*.xml
+result*.txt
 cache/
 cacheIndex.txt
