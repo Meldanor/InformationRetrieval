@@ -36,12 +36,13 @@ public class WizardUI extends AbstractUI {
     public WizardUI() {
         scanner = new Scanner(System.in);
         URL seed = askSeed();
-        boolean printOnConsole = askConsole();
         int depth = askDepth();
+        boolean printOnConsole = askConsole();
+        boolean forceCrawling = askEnforceCrawling();
         String query = askQuery();
 
         scanner.close();
-        startSearch(seed, depth, printOnConsole, query);
+        startSearch(seed, depth, printOnConsole, forceCrawling, query);
     }
 
     /**
@@ -102,4 +103,11 @@ public class WizardUI extends AbstractUI {
         String query = scanner.nextLine();
         return query;
     }
+
+    private boolean askEnforceCrawling() {
+        System.out.println("Force website crawling and ignoring possible cache (Y) or use cache if possible (N)?");
+        String answer = scanner.nextLine();
+        return answer.equalsIgnoreCase("Y");
+    }
+
 }

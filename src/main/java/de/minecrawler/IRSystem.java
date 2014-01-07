@@ -34,11 +34,15 @@ public class IRSystem {
     private CacheManager cacheManager;
     private AbstractSearchEngine searchEngine;
 
-    public IRSystem(URL seed, int deepth) throws Exception {
+    public IRSystem(URL seed, int deepth, boolean forceCrawling) throws Exception {
         cacheManager = new CacheManager();
         File cacheFile = cacheManager.getCache(seed, deepth);
         if (cacheFile == null) {
             System.out.println("Use website crawler - this will take a moment!");
+            useNotCachedIndex(seed, deepth);
+        } else if (forceCrawling) {
+            System.out.println("Enforce website crawling and delete old cache");
+            cacheManager.removeCache(seed, deepth);
             useNotCachedIndex(seed, deepth);
         } else {
             System.out.println("Use cached websites (Websites are not older than an hour!)");

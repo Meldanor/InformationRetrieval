@@ -34,11 +34,11 @@ public abstract class AbstractUI {
 
     }
 
-    protected void startSearch(URL seed, int maxDepth, boolean printOnConsole, String query) {
+    protected void startSearch(URL seed, int maxDepth, boolean printOnConsole, boolean forceCrawling, String query) {
         long time = System.nanoTime();
         IRSystem irSystem;
         try {
-            irSystem = new IRSystem(seed, maxDepth);
+            irSystem = new IRSystem(seed, maxDepth, forceCrawling);
         } catch (Exception e) {
             System.err.println("Error while executing the search!");
             e.printStackTrace();

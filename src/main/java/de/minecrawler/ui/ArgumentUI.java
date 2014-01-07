@@ -68,6 +68,8 @@ public class ArgumentUI extends AbstractUI {
 
         options.addOption("d", "depth", true, "Max recursivce deepth to crawl");
 
+        options.addOption("f", "forceCrawling", false, "Enforce website crawling and ignore using cache");
+
         return options;
     }
 
@@ -78,6 +80,8 @@ public class ArgumentUI extends AbstractUI {
         URL seed = null;
         // Shows the query output on the console
         boolean showInConsole = false;
+
+        boolean forceCrawling = false;
 
         int depth = 5;
 
@@ -103,11 +107,13 @@ public class ArgumentUI extends AbstractUI {
             // Shows the query output on the console
             showInConsole = line.hasOption("console");
 
+            forceCrawling = line.hasOption("forceCrawling");
+
             // Non parsed arguments are the query
             args = line.getArgs();
             String query = buildQuery(args);
 
-            startSearch(seed, depth, showInConsole, query);
+            startSearch(seed, depth, showInConsole, forceCrawling, query);
         } catch (ParseException e) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("", options);
