@@ -35,7 +35,7 @@ import de.minecrawler.data.CrawledWebsite;
 import de.minecrawler.data.CrawledWebsiteResult;
 
 /**
- * Search engine provide methodes to add documents to the index.
+ * Search engine provides methodes to add documents to the index.
  */
 public class LiveSearchEngine extends AbstractSearchEngine {
 
@@ -52,7 +52,7 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     private IndexWriter indexWriter;
 
     /**
-     * Creates an search engine with a file to write the index to
+     * Creates a search engine with a file to write the index in.
      * 
      * @param toCacheFile
      *            Empty file, will contain after the indexing the index itself.
@@ -75,8 +75,8 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     }
 
     /**
-     * Add a single crawled website to the index. All attributes are index(not
-     * the url)
+     * Adds a single crawled website to the index. All attributes are index (not
+     * the url).
      * 
      * @param website
      *            The crawled website
@@ -93,8 +93,8 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     }
 
     /**
-     * Add a collection of websites to the index. See
-     * {@link #addWebsite(CrawledWebsite)}
+     * Adds a collection of websites to the index. See
+     * {@link #addWebsite(CrawledWebsite)}.
      * 
      * @param websites
      *            The crawled websites
@@ -141,7 +141,7 @@ public class LiveSearchEngine extends AbstractSearchEngine {
     }
 
     /**
-     * Add the website attributes to the documents fields
+     * Adds the attributes of the website to the document fields
      * 
      * @param doc
      *            The document for the index
