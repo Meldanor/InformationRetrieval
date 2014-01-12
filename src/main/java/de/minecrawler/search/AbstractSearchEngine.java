@@ -41,7 +41,7 @@ import de.minecrawler.data.CrawledWebsiteResult;
 
 /**
  * General class for search engine providig a Lucene based search on a
- * directory. The implementation define the directory for the index
+ * directory. The implementation defines the directory for the index.
  */
 public abstract class AbstractSearchEngine {
 
@@ -62,7 +62,7 @@ public abstract class AbstractSearchEngine {
     protected Directory dir;
 
     /**
-     * Creates a directory for the index
+     * Creates a directory for the index.
      * 
      * @param args
      *            Possible arguments to pass by
@@ -125,7 +125,7 @@ public abstract class AbstractSearchEngine {
     }
 
     /**
-     * Create a wrapper from the document
+     * Creates a wrapper from the document.
      * 
      * @param doc
      *            The document containing the information
