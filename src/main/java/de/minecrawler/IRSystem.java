@@ -30,8 +30,8 @@ import de.minecrawler.search.CachedSearchEngine;
 import de.minecrawler.search.LiveSearchEngine;
 
 /**
- * An IR system using a cache manager, a website crawler and an search engine to
- * run a search on the indexed data
+ * An IR system using a cache manager, a website crawler and a search engine to
+ * run a search on the indexed data.
  */
 public class IRSystem {
 
@@ -39,7 +39,7 @@ public class IRSystem {
     private AbstractSearchEngine searchEngine;
 
     /**
-     * Create an IRSystem using a seed and depth of crawling. The IRSystem will
+     * Creates an IRSystem using a seed and the depth of crawling. The IRSystem will
      * select a cache-based search(fast) or a non-cache-based search(slow)
      * depending on cache existing for the search parameters(url and seed) and
      * if crawling is enforced by the user.
@@ -70,7 +70,7 @@ public class IRSystem {
     }
 
     /**
-     * Use the crawler to index the websites. This will take very long depending
+     * Uses the crawler to index the websites. This will take very long depending
      * on your network connection and the webserver.
      * 
      * @param seed
@@ -100,7 +100,7 @@ public class IRSystem {
     }
 
     /**
-     * Use a cache based search engine and do NOT crawl the website. Very fast!
+     * Uses a cache based search engine and do NOT crawl the website. Very fast!
      * 
      * @param cacheFile
      *            The file to the cache
