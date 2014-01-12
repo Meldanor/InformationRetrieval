@@ -47,7 +47,7 @@ public class WizardUI extends AbstractUI {
     }
 
     /**
-     * Ask for a seed URL where the crawling starts.
+     * Asks for a seed URL where the crawling starts.
      * 
      * @return An URL where the crawler begins.
      */
@@ -78,7 +78,7 @@ public class WizardUI extends AbstractUI {
     }
 
     /**
-     * Ask the user how many results are maximal returned
+     * Asks the user how many results should be returned.
      * 
      * @return Result limit
      */
@@ -96,7 +96,7 @@ public class WizardUI extends AbstractUI {
     }
 
     /**
-     * Ask the user about the max depth of websites to crawl (the recursion
+     * Asks the user about the max depth of websites to crawl (the recursion
      * depth)
      * 
      * @return Recursion depth of crawling, 5 by default
@@ -124,8 +124,8 @@ public class WizardUI extends AbstractUI {
     }
 
     /**
-     * Asks the user to ignore possible cache and always start the website
-     * crawler or use the cache if this is possible.
+     * Asks the user to ignore possible cache and always starts the website
+     * crawler or uses the cache if this is possible.
      * 
      * @return <code>true</code> If, and only if, the user answers with Y.
      *         Otherwise <code>false</code>
