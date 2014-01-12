@@ -33,7 +33,7 @@ import org.jsoup.select.Elements;
 import de.minecrawler.data.CrawledWebsite;
 
 /**
- * Website crawler based on Jsoup. Use deep first search recursion strategy for
+ * Website crawler based on Jsoup. Uses deep first search recursion strategy for
  * crawling.
  */
 public class Crawler {
@@ -44,7 +44,7 @@ public class Crawler {
     private URL seed;
 
     /**
-     * Creates an website crawler with an initial url to crawl and the
+     * Creates a website crawler with an initial url to crawl and the
      * limitation for crawling.
      * 
      * @param maxSearchDepth
@@ -58,7 +58,7 @@ public class Crawler {
     }
 
     /**
-     * Start the crawler
+     * Starts the crawler.
      * 
      * @return List containing crawled websites retrieved from the seed url.
      *         <code>Null</code> if, and only if, an error occured!
@@ -76,7 +76,7 @@ public class Crawler {
 
     /**
      * The deep first search of the website. Terminates when the maxSearchDepth
-     * is reached
+     * is reached.
      * 
      * @param websites
      *            List of current crawled websites
