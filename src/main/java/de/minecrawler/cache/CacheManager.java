@@ -34,7 +34,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 /**
- * Manage cache for crawled and indexed websites to provide an easier interface
+ * Manages cache for crawled and indexed websites to provide an easier interface
  * for this. A cached search is always faster then a crawled base search!
  */
 public class CacheManager {
@@ -47,7 +47,7 @@ public class CacheManager {
     private File cacheDir;
 
     /**
-     * Creates a CacheManager and load the cache index
+     * Creates a CacheManager and loads the cache index.
      */
     public CacheManager() {
         this.urlIndex = new HashMap<URL, List<CacheIndex>>();
@@ -57,8 +57,8 @@ public class CacheManager {
     }
 
     /**
-     * Parse the cache index and load all neccessary information from the cache
-     * to the map
+     * Parses the cache index and loads the needed information from the cache
+     * to the map.
      */
     private void loadIndex() {
         try {
@@ -102,14 +102,14 @@ public class CacheManager {
     }
 
     /**
-     * Provicde a File to save the cache for the url and its depth. Same urls
+     * Provides a file where to save the cache for the url and its depth. Same urls
      * with different depth have different caches!
      * 
      * @param url
      *            The seed of the crawling
      * @param depth
      *            The depth of the crawling
-     * @return A file to save the cache
+     * @return A file where to save the cache
      */
     public File addURL(URL url, int depth) {
         List<CacheIndex> list = urlIndex.get(url);
@@ -126,7 +126,7 @@ public class CacheManager {
     }
 
     /**
-     * Retrieve the file to the cache. Same urls with different depth have
+     * Retrieves the file to the cache. Same urls with different depth have
      * different caches!
      * 
      * @param url
@@ -134,7 +134,7 @@ public class CacheManager {
      * @param depth
      *            The depth of the crawling
      * @return <code>Null</code> when no cache was found or the cache is
-     *         expired(then it will be also deleted!). Otherwise the file to
+     *         expired (it will be deleted!). Otherwise the file to
      *         cache
      */
     public File getCache(URL url, int depth) {
@@ -150,7 +150,7 @@ public class CacheManager {
     }
 
     /**
-     * Search for the cache index
+     * Searches for the cache index.
      * 
      * @param url
      *            The url
@@ -172,7 +172,7 @@ public class CacheManager {
     }
 
     /**
-     * Remove the cache
+     * Removes the cache.
      * 
      * @param url
      *            The url
@@ -190,7 +190,7 @@ public class CacheManager {
     }
 
     /**
-     * Remove and deletes the cache from the cacheManager and the filesystem
+     * Removes and deletes the cache from the cacheManager and the filesystem
      * 
      * @param index
      *            The index to remove
@@ -244,7 +244,7 @@ public class CacheManager {
     }
 
     /**
-     * Write the complete cache index to the cacheindex file
+     * Writes the complete cache index to the cacheindex file
      */
     private void writeIndex() {
         try {
