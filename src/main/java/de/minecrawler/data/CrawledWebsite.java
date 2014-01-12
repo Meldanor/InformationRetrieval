@@ -39,7 +39,7 @@ public class CrawledWebsite {
      * @param title
      *            The title of the website
      * @param url
-     *            The URL to the website
+     *            The URL of the website
      */
     public CrawledWebsite(String body, String title, URL url) {
         this.body = body;
@@ -53,7 +53,7 @@ public class CrawledWebsite {
      * @param title
      *            The title of the website
      * @param url
-     *            String encoded URL to the website. Must be well formed
+     *            String encoded URL of the website. Must be well formed
      *            otherwise an error occures!
      */
     public CrawledWebsite(String body, String title, String url) {
@@ -81,7 +81,7 @@ public class CrawledWebsite {
     }
 
     /**
-     * @return The URL to the website
+     * @return The URL of the website
      */
     public URL getURL() {
         return url;
