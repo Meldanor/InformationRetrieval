@@ -25,13 +25,13 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 
 /**
- * Read only search engine based on a already indexed directory. Can't modify
+ * Read only search engine, based on an indexed directory. Can't modify
  * the cache.
  */
 public class CachedSearchEngine extends AbstractSearchEngine {
 
     /**
-     * Creates a cached base search engine
+     * Creates a cached base search engine.
      * 
      * @param cacheFile
      *            The file to the cache
