@@ -29,8 +29,8 @@ import de.minecrawler.IRSystem;
 import de.minecrawler.data.CrawledWebsiteResult;
 
 /**
- * General class to provide several methods for searching using retrieved
- * parameters
+ * General class to provide several methods for searching, using retrieved
+ * parameters.
  */
 public abstract class AbstractUI {
 
@@ -39,14 +39,14 @@ public abstract class AbstractUI {
     }
 
     /**
-     * Use an {@link IRSystem} to run a search
+     * Use a {@link IRSystem} to run a search
      * 
      * @param seed
      *            The initial url seed
      * @param maxDepth
      *            The maximum crawl depth
      * @param printOnConsole
-     *            Shall the result printed on the console or to a new created
+     *            Should the result be printed on the console or to a new created
      *            file
      * @param resultLimit
      *            How many results shall printed
@@ -79,7 +79,7 @@ public abstract class AbstractUI {
     }
 
     /**
-     * Shows the results
+     * Shows the results.
      * 
      * @param showInConsole
      *            Show the output on the console<br>
@@ -114,8 +114,8 @@ public abstract class AbstractUI {
     }
 
     /**
-     * Format the execution time to a readable format with seconds, milliseconds
-     * and microseconds
+     * Formats the execution time to a readable format with seconds, milliseconds
+     * and microseconds.
      * 
      * @param time
      *            The execution time
@@ -134,7 +134,7 @@ public abstract class AbstractUI {
     }
 
     /**
-     * Write the formatted result textto a file
+     * Writes the formatted result text into a file.
      * 
      * @param text
      *            Formatted result
